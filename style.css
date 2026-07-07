@@ -53,3 +53,80 @@ body {
     box-shadow: var(--shadow);
     backdrop-filter: blur(var(--blur));
 }
+
+.dashboard {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 25px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 25px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.navbar .logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.navbar .theme-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    background: transparent;
+}
+
+.navbar .theme-btn:active {
+    transform: scale(0.90);
+}
+
+.welcome {
+    padding: 40px;
+    flex: 1;
+}
+
+.welcome h1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+
+    padding: 30px;
+}
+
+.feature {
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+
+    background: var(--glass);
+    color: var(--text-color);
+    font-size: 18px;
+    padding: 20px;
+}
+
+.features .feature:active {
+    transform: scale(0.95);
+}
