@@ -8,6 +8,8 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     --text-color: #ffffff;
 
+    --background-popup:rgba(0,0,0);
+
 }
 
 * {
@@ -129,4 +131,43 @@ body {
 
 .features .feature:active {
     transform: scale(0.95);
+}
+
+.popup{
+    position: fixed;
+    inset:0;
+    
+    display:none;
+    justify-content: center;
+    align-items: center;
+
+    padding:25px;
+}
+
+.popup.show{
+    display:flex;
+}
+
+.popup-card{
+    padding:40px;
+    position:relative;
+
+    width:min(300px,95%);
+}
+
+.close{
+    position: absolute;
+    top:15px;
+    right:15px;
+
+    width:40px;
+    aspect-ratio: 1/1;
+
+    font-size:18px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
 }
