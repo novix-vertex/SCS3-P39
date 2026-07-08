@@ -1,3 +1,5 @@
+todolist = [];
+
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
 const popupClose = document.querySelector(".close");
@@ -6,7 +8,8 @@ document.querySelectorAll(".feature").forEach((f) => {
     f.addEventListener("click", () => {
         popup.classList.add("show");
         if (f.dataset.feature == "todo-list") {
-            popupContent.innerHTML = `Todo List`;
+            popupContent.innerHTML = todoListUI();
+            todoList();
         }
         if (f.dataset.feature == "daily-planner") {
             popupContent.innerHTML = `Daily Planner`;
@@ -28,6 +31,113 @@ popupClose.addEventListener("click", () => {
     popup.classList.remove("show");
 });
 
+
+/**
+ * Todo List UI and Logic
+ */
+function todoListUI() {
+    return `<section class="detail-container">
+                <section class="header">
+                    <h2 class="page-title">Todo List</h2>
+                </section>
+                <section class="todo-list-container">
+                    <section class="todo-list-form">
+                        <h2 class="add-task-title">ADD TASK</h2>
+                        <form action="#">
+                            <input type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus
+                                required>
+                            <textarea placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5"
+                                required></textarea>
+                            <label>
+                                <input type="checkbox" name="todo-isimp" id="todo-isimp">
+                                Mark as Important
+                            </label>
+                            <button type="submit">Add Task</button>
+                        </form>
+                    </section>
+                    <section class="todo-list-items">
+                    </section>
+                </section>
+            </section>`;
+}
+
+function todoList() {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", (e, idx) => {
+        e.preventDefault();
+        const title = document.querySelector("#todo-title");
+        const desc = document.querySelector("#todo-desc");
+        const isImportant = document.querySelector("#todo-isimp");
+        addTask(title, desc, isImportant);
+    });
+
+    function addTask(title, desc, isImportant) {
+        todolist.push({
+            "title": title.value.trim(),
+            "description": desc.value.trim(),
+            "isCompleted": false,
+            "isImportant": isImportant.checked
+        });
+        title.value = "";
+        desc.value = "";
+        isImportant.checked = false;
+        setTaskListFromLocalStorage(todolist);
+
+        showTaskList();
+        title.focus();
+    }
+
+    const todo_list_items = document.querySelector(".todo-list-items");
+
+    function showTaskList() {
+        getTaskListFromLocalStorage();
+        let sum = '';
+        todolist.forEach((todo, idx) => {
+            sum += `<div class="task" id=${idx}>
+                    <div class="task-info">
+                        <h2 class="task-title">${todo.title}</h2>
+                        ${todo.isImportant ? `<span id=${idx} class="task-imp">Imp</span>` : ``}
+                    </div>
+                    ${todo.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
+               </div>`;
+            todo_list_items.innerHTML = sum;
+
+        });
+    }
+
+    todo_list_items.addEventListener("click", (e) => {
+        if (e.target.classList.contains("mark-complete-bt")) {
+            markCompleted(e.target.id);
+        }
+    });
+
+
+    function markCompleted(idx) {
+        todolist[idx].isCompleted = true;
+        setTaskListFromLocalStorage(todolist);
+        showTaskList();
+    }
+
+
+    function getTaskListFromLocalStorage() {
+        if (localStorage.getItem("tasklist")) {
+            todolist = JSON.parse(localStorage.getItem("tasklist"));
+            todo_list_items.style.justifyContent = "flex-start";
+        }
+        else {
+            todo_list_items.style.justifyContent = "center";
+            todo_list_items.style.color = "#fff";
+            todo_list_items.innerHTML = "<h1>No task added yet</h1>";
+        }
+    }
+
+    function setTaskListFromLocalStorage(tasklist) {
+        localStorage.setItem("tasklist", JSON.stringify(tasklist));
+    }
+
+    showTaskList();
+}
 
 /**
  * Pomodoro UI and Logic
