@@ -176,7 +176,7 @@ body {
     width: 100%;
 }
 
-.todo-list-container {
+.todo-list-container,.goal-container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -184,7 +184,7 @@ body {
     justify-content: space-around;
 }
 
-.todo-list-container .todo-list-form {
+.todo-list-container .todo-list-form,.goal-container .goal-form {
     background-color: black;
     height: 500px;
     width: 30%;
@@ -193,7 +193,7 @@ body {
     border: 5px solid white;
 }
 
-.todo-list-container .todo-list-form form {
+.todo-list-container .todo-list-form form,.goal-container .goal-form form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -201,6 +201,7 @@ body {
 }
 
 .todo-list-container .todo-list-form form input[type="text"],
+textarea,.goal-container .goal-form form input[type="text"],
 textarea {
     padding: 15px 25px;
     font-size: 1.5rem;
@@ -213,12 +214,12 @@ textarea {
     width: 100%;
 }
 
-.todo-list-container .todo-list-form form input[type='text'] {
+.todo-list-container .todo-list-form form input[type='text'],.goal-container .goal-form form input[type='text'] {
     font-weight: 600;
     cursor: text;
 }
 
-.todo-list-container .todo-list-form form label {
+.todo-list-container .todo-list-form form label,.goal-container .goal-form form label {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -227,11 +228,11 @@ textarea {
     cursor: pointer;
 }
 
-.todo-list-container .todo-list-form form input[type="checkbox"] {
+.todo-list-container .todo-list-form form input[type="checkbox"],.goal-container .goal-form form input[type="checkbox"] {
     cursor: pointer;
 }
 
-.todo-list-container .todo-list-form form button {
+.todo-list-container .todo-list-form form button,.goal-container .goal-form form button {
     width: 100%;
     font-size: 1.5rem;
     background-color: white;
@@ -242,11 +243,11 @@ textarea {
     cursor: pointer;
 }
 
-.todo-list-container .todo-list-form form button:active {
+.todo-list-container .todo-list-form form button:active,.goal-container .goal-form form button:active {
     transform: scale(0.98);
 }
 
-.todo-list-container .todo-list-form .add-task-title {
+.todo-list-container .todo-list-form .add-task-title,.goal-container .goal-form .add-goal-title {
     padding: 15px 25px;
     font-size: 25px;
     color: white;
@@ -259,7 +260,7 @@ textarea {
     margin-bottom: 20px;
 }
 
-.todo-list-container .todo-list-items {
+.todo-list-container .todo-list-items,.goal-container .goal-items {
     background-color: black;
     height: 500px;
     width: 65%;
@@ -274,14 +275,14 @@ textarea {
     overflow: auto;
 }
 
-.todo-list-container .todo-list-items details summary {
+.todo-list-container .todo-list-items details summary,.goal-container .goal-items details summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.todo-list-container .todo-list-items .task {
+.todo-list-container .todo-list-items .task,.goal-container .goal-items .goal {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -292,14 +293,14 @@ textarea {
     border-radius: 5px;
 }
 
-.todo-list-container .todo-list-items .task .task-info {
+.todo-list-container .todo-list-items .task .task-info,.goal-container .goal-items .goal .goal-info {
     display: flex;
     gap: 8px;
     align-items: center;
     justify-content: flex-start;
 }
 
-.todo-list-container .todo-list-items .task .task-title {
+.todo-list-container .todo-list-items .task .task-title,.goal-container .goal-items .goal .goal-title {
     font-size: 1.5rem;
     color: black;
 }
@@ -313,7 +314,7 @@ textarea {
     border: 1px solid black;
 }
 
-.todo-list-container .todo-list-items .task .mark-complete-bt {
+.todo-list-container .todo-list-items .task .mark-complete-bt,.goal-container .goal-items .goal .mark-complete-bt {
     font-size: 1rem;
     background-color: black;
     color: white;
@@ -324,7 +325,7 @@ textarea {
     width: 200px;
 }
 
-.todo-list-container .todo-list-items .task .completed-bt {
+.todo-list-container .todo-list-items .task .completed-bt,.goal-container .goal-items .goal .completed-bt {
     font-size: 1rem;
     background-color: black;
     color: white;

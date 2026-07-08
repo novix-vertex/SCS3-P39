@@ -1,4 +1,5 @@
 todolist = [];
+goals = [];
 
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
@@ -24,7 +25,8 @@ document.querySelectorAll(".feature").forEach((f) => {
             pomodoroTimer();
         }
         if (f.dataset.feature == "goals") {
-            popupContent.innerHTML = `Goals`;
+            popupContent.innerHTML = goalsUI();
+            goalsList();
         }
     })
 });
@@ -330,6 +332,104 @@ function pomodoroTimer() {
     startBtn.addEventListener("click", startTimer);
     pauseBtn.addEventListener("click", pauseTimer);
     resetBtn.addEventListener("click", resetTimer);
+}
+
+/**
+ * Todo List UI and Logic
+ */
+function goalsUI() {
+    return `<section class="detail-container">
+                <section class="header">
+                    <h2 class="page-title">Goals</h2>
+                </section>
+                <section class="goal-container">
+                    <section class="goal-form">
+                        <h2 class="add-goal-title">ADD GOAL</h2>
+                        <form action="#">
+                            <input type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus
+                                required>
+                            <textarea placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5"
+                                required></textarea>
+                            <button type="submit">Add Goal</button>
+                        </form>
+                    </section>
+                    <section class="goal-items">
+                    </section>
+                </section>
+            </section>`;
+}
+function goalsList() {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", (e, idx) => {
+        e.preventDefault();
+        const title = document.querySelector("#goal-title");
+        const desc = document.querySelector("#goal-desc");
+        addGoal(title, desc);
+    });
+
+    function addGoal(title, desc) {
+        goals.push({
+            "title": title.value.trim(),
+            "description": desc.value.trim(),
+            "isCompleted": false
+        });
+        title.value = "";
+        desc.value = "";
+        setGoalsFromLocalStorage(goals);
+
+        showGoals();
+        title.focus();
+    }
+
+    const goals_items = document.querySelector(".goal-items");
+
+    function showGoals() {
+        getGoalsFromLocalStorage();
+        let sum = '';
+        goals.forEach((goal, idx) => {
+            sum += `<div class="goal" id=${idx}>
+                    <div class="goal-info">
+                        <h2 class="goal-title">${goal.title}</h2>
+                    </div>
+                    ${goal.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
+               </div>`;
+            goals_items.innerHTML = sum;
+
+        });
+    }
+
+    goals_items.addEventListener("click", (e) => {
+        if (e.target.classList.contains("mark-complete-bt")) {
+            markCompleted(e.target.id);
+        }
+    });
+
+
+    function markCompleted(idx) {
+        goals[idx].isCompleted = true;
+        setGoalsFromLocalStorage(goals);
+        showGoals();
+    }
+
+
+    function getGoalsFromLocalStorage() {
+        if (localStorage.getItem("goals")) {
+            goals = JSON.parse(localStorage.getItem("goals"));
+            goals_items.style.justifyContent = "flex-start";
+        }
+        else {
+            goal_items.style.justifyContent = "center";
+            goal_items.style.color = "#fff";
+            goal_items.innerHTML = "<h1>No goal added yet</h1>";
+        }
+    }
+
+    function setGoalsFromLocalStorage(goals) {
+        localStorage.setItem("goals", JSON.stringify(goals));
+    }
+
+    showGoals();
 }
 
 
