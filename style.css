@@ -152,7 +152,8 @@ body {
     padding: 2.5rem;
     position: relative;
 
-    width: min(300px, 95%);
+    height:100%;
+    width:100%;
 }
 
 .close {
@@ -171,6 +172,71 @@ body {
     cursor: pointer;
 
 }
+
+.detail-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.detail-container .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.detail-container .pomodoro-container,
+.detail-container .pomodoro-container .timer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 4rem;
+}
+
+.detail-container .pomodoro-container .timer-container {
+    border: 4px solid black;
+    color: black;
+    border-radius: 50%;
+    padding: 1rem;
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.detail-container .pomodoro-container .timer-container h4 {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.detail-container .pomodoro-container .action-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.detail-container .pomodoro-container .action-btns .pomodoro-btn {
+    padding: 1rem 2rem;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 0.87rem;
+}
+
+.detail-container .pomodoro-container .action-btns .pomodoro-btn:active {
+    scale: 0.95;
+}
+
 
 .date-time-weather-card {
     width: 450px;
