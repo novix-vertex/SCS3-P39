@@ -12,7 +12,8 @@ document.querySelectorAll(".feature").forEach((f) => {
             todoList();
         }
         if (f.dataset.feature == "daily-planner") {
-            popupContent.innerHTML = `Daily Planner`;
+            popupContent.innerHTML = dailyPlannerUI();
+            dailyPlanner();
         }
         if (f.dataset.feature == "motivational-quotes") {
             popupContent.innerHTML = `Motivational Quotes`;
@@ -137,6 +138,70 @@ function todoList() {
 
     showTaskList();
 }
+
+
+/**
+ * Daily Planner UI and Logic
+ */
+function dailyPlannerUI() {
+    return `<section class="detail-container">
+                <section class="header">
+                    <h2 class="page-title">Daily Planner</h2>
+                </section>
+                <section class="daily-planner-container">
+                </section>
+            </section>`;
+}
+function dailyPlanner() {
+    const start = 6;
+    const end = 24;
+
+    let daily_planner = [];
+
+    for (let i = start; i < end; i++) {
+        daily_planner.push(
+            {
+                "time": `${i}:00 - ${i + 1}:00`,
+                "plan": ""
+            }
+        )
+    }
+    let daily_planner_container = document.querySelector(".daily-planner-container");
+
+
+    function getDailyPlannerFromLocalStorage() {
+        if (localStorage.getItem("dailyplanner")) {
+            daily_planner = JSON.parse(localStorage.getItem("dailyplanner"));
+        }
+    }
+    function setDailyPlannerToLocalStorage(dailyplanner) {
+        localStorage.setItem("dailyplanner", JSON.stringify(dailyplanner));
+    }
+
+    getDailyPlannerFromLocalStorage();
+    let sum = "";
+    daily_planner.forEach((elem, idx) => {
+        sum += `<div class="daily-planning-cell">
+                    <p>${elem.time}</p>
+                    <input type="text" name="daily-plan-text" id = ${idx} placeholder="..." value=${elem.plan}>
+                </div>`;
+    });
+
+    daily_planner_container.innerHTML = sum;
+
+    let daily_planner_cells = document.querySelectorAll(".daily-planning-cell input");
+
+    daily_planner_cells.forEach((elem) => {
+        elem.addEventListener("input", () => {
+            console.log(elem.id, elem.value);
+            daily_planner[elem.id].plan = elem.value;
+            setDailyPlannerToLocalStorage(daily_planner);
+            getDailyPlannerFromLocalStorage();
+        });
+    })
+
+}
+
 
 /**
  * Pomodoro UI and Logic
