@@ -1,12 +1,13 @@
 :root {
-    --glass: rgba(255, 255, 255, 0.15);
+    --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.25);
 
-    --overlay: rgba(0, 0, 0, 0.35);
+    --overlay: rgba(0, 0, 0, 0.15);
     --blur: 1.125rem;
 
     --shadow: 0 0.675rem 1.875rem rgba(0, 0, 0, 0.25);
     --text-color: #ffffff;
+    --dark-text-color:#431007;
 
     --background-popup: rgba(0, 0, 0);
 }
@@ -26,7 +27,7 @@ html {
 body {
     min-height: 100vh;
     overflow: hidden;
-    color: var(--text-color);
+    color: var(--dark-text-color);
 }
 
 .background,
@@ -58,8 +59,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 1.rem;
+    gap: 0.5rem;
 }
 
 .navbar {
@@ -95,6 +95,53 @@ body {
     transform: scale(0.90);
 }
 
+.container {
+    display: grid;
+    gap: 1rem;
+    max-height: 88vh;
+
+    grid-template-columns: 2fr 1fr 1.5fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    grid-template-areas: "weather pomo todo"
+        "weather planner goal"
+        "quote quote goal";
+    flex: 1;
+    padding: 1rem;
+}
+
+.card-1 {
+    grid-area: weather;
+}
+
+.card-2 {
+    grid-area: todo;
+}
+
+.card-3 {
+    grid-area: planner;
+}
+
+.card-4 {
+    grid-area: quote;
+}
+
+.card-5 {
+    grid-area: pomo;
+}
+
+.card-6 {
+    grid-area: goal;
+}
+
+.card {
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .welcome {
     padding: 2.5rem;
     flex: 1;
@@ -103,13 +150,6 @@ body {
 .welcome h1 {
     font-size: 2.5rem;
     font-weight: 600;
-}
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.125rem;
-    padding: 1.875rem;
 }
 
 .feature {
@@ -132,7 +172,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    padding: 1.5rem;
+    padding: 0.5rem;
 }
 
 .popup.show {
@@ -146,16 +186,21 @@ body {
     width: 100%;
 }
 
+#popup-content {
+    height: 100%;
+    width: 100%;
+}
+
 .close {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     border: none;
     border-radius: 50%;
     cursor: pointer;
+    color:var(--dark-text-color);
+    font-weight: bolder;
 }
 
 .detail-container {
@@ -175,7 +220,8 @@ body {
     width: 100%;
 }
 
-.todo-list-container,.goal-container {
+.todo-list-container,
+.goal-container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -183,16 +229,16 @@ body {
     justify-content: space-around;
 }
 
-.todo-list-container .todo-list-form,.goal-container .goal-form {
-    background-color: black;
+.todo-list-container .todo-list-form,
+.goal-container .goal-form {
     height: 500px;
     width: 30%;
     padding: 1rem;
     border-radius: 1rem;
-    border: 5px solid white;
 }
 
-.todo-list-container .todo-list-form form,.goal-container .goal-form form {
+.todo-list-container .todo-list-form form,
+.goal-container .goal-form form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -200,56 +246,67 @@ body {
 }
 
 .todo-list-container .todo-list-form form input[type="text"],
-textarea,.goal-container .goal-form form input[type="text"],
+textarea,
+.goal-container .goal-form form input[type="text"],
 textarea {
     padding: 15px 25px;
     font-size: 1.5rem;
-    background-color: white;
     outline: none;
     border: none;
     border-radius: 5px;
-    color: black;
+    color:var(--dark-text-color);
     font-weight: 500;
     width: 100%;
 }
 
-.todo-list-container .todo-list-form form input[type='text'],.goal-container .goal-form form input[type='text'] {
+.todo-list-container .todo-list-form form input[type='text'],
+.goal-container .goal-form form input[type='text'] {
     font-weight: 600;
     cursor: text;
 }
 
-.todo-list-container .todo-list-form form label,.goal-container .goal-form form label {
+.todo-list-container .todo-list-form form label,
+.goal-container .goal-form form label {
     display: flex;
     align-items: center;
     gap: 8px;
     width: 100%;
-    color: white;
+    color:var(--dark-text-color);
+    font-weight: bolder;
     cursor: pointer;
 }
 
-.todo-list-container .todo-list-form form input[type="checkbox"],.goal-container .goal-form form input[type="checkbox"] {
+.todo-list-container .todo-list-form form input[type="checkbox"],
+.goal-container .goal-form form input[type="checkbox"] {
     cursor: pointer;
 }
+input::placeholder,textarea::placeholder {
+    color:var(--dark-text-color);
+    opacity: 0.5;
+}
 
-.todo-list-container .todo-list-form form button,.goal-container .goal-form form button {
+.todo-list-container .todo-list-form form button,
+.goal-container .goal-form form button {
     width: 100%;
     font-size: 1.5rem;
-    background-color: white;
-    color: black;
+    font-weight: bolder;
+    color:var(--dark-text-color);
     padding: 1rem 2rem;
     border-radius: 5px;
     pointer-events: all;
     cursor: pointer;
 }
 
-.todo-list-container .todo-list-form form button:active,.goal-container .goal-form form button:active {
+.todo-list-container .todo-list-form form button:active,
+.goal-container .goal-form form button:active {
     transform: scale(0.98);
 }
 
-.todo-list-container .todo-list-form .add-task-title,.goal-container .goal-form .add-goal-title {
+.todo-list-container .todo-list-form .add-task-title,
+.goal-container .goal-form .add-goal-title {
     padding: 15px 25px;
     font-size: 25px;
-    color: white;
+    color:var(--dark-text-color);
     outline: none;
     border: none;
     border-radius: 5px;
@@ -259,13 +316,12 @@ textarea {
     margin-bottom: 20px;
 }
 
-.todo-list-container .todo-list-items,.goal-container .goal-items {
-    background-color: black;
+.todo-list-container .todo-list-items,
+.goal-container .goal-items {
     height: 500px;
     width: 65%;
     padding: 1rem;
     border-radius: 1rem;
-    border: 5px solid white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -274,49 +330,51 @@ textarea {
     overflow: auto;
 }
 
-.todo-list-container .todo-list-items details summary,.goal-container .goal-items details summary {
+.todo-list-container .todo-list-items details summary,
+.goal-container .goal-items details summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.todo-list-container .todo-list-items .task,.goal-container .goal-items .goal {
+.todo-list-container .todo-list-items .task,
+.goal-container .goal-items .goal {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
-    border: 5px solid black;
     width: 100%;
     padding: 1rem 2rem;
     border-radius: 5px;
 }
 
-.todo-list-container .todo-list-items .task .task-info,.goal-container .goal-items .goal .goal-info {
+.todo-list-container .todo-list-items .task .task-info,
+.goal-container .goal-items .goal .goal-info {
     display: flex;
     gap: 8px;
     align-items: center;
     justify-content: flex-start;
 }
 
-.todo-list-container .todo-list-items .task .task-title,.goal-container .goal-items .goal .goal-title {
+.todo-list-container .todo-list-items .task .task-title,
+.goal-container .goal-items .goal .goal-title {
     font-size: 1.5rem;
-    color: black;
+    color: var(--dark-text-color);
+    font-weight: bolder;
 }
 
 .todo-list-container .todo-list-items .task .task-imp {
-    font-size: 0.5rem;
-    background-color: black;
-    color: white;
+    font-size: 0.8rem;
+    background-color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 4px 8px;
     border-radius: 8px;
-    border: 1px solid black;
 }
 
-.todo-list-container .todo-list-items .task .mark-complete-bt,.goal-container .goal-items .goal .mark-complete-bt {
+.todo-list-container .todo-list-items .task .mark-complete-bt,
+.goal-container .goal-items .goal .mark-complete-bt {
     font-size: 1rem;
-    background-color: black;
-    color: white;
+    color: var(--dark-text-color);
     padding: 1rem 2rem;
     border-radius: 5px;
     pointer-events: all;
@@ -324,10 +382,10 @@ textarea {
     width: 200px;
 }
 
-.todo-list-container .todo-list-items .task .completed-bt,.goal-container .goal-items .goal .completed-bt {
+.todo-list-container .todo-list-items .task .completed-bt,
+.goal-container .goal-items .goal .completed-bt {
     font-size: 1rem;
-    background-color: black;
-    color: white;
+    color: var(--dark-text-color);
     padding: 1rem 2rem;
     border-radius: 5px;
     opacity: 50%;
@@ -444,7 +502,9 @@ textarea {
     border-radius: 1rem;
     font-size: 2rem;
 }
-
+.detail-container .pomodoro-container{
+    padding:1.5rem;
+}
 .pomodoro-container,
 .detail-container .pomodoro-container .timer-container {
     display: flex;
@@ -456,8 +516,7 @@ textarea {
 }
 
 .detail-container .pomodoro-container .timer-container {
-    border: 4px solid black;
-    color: black;
+    color: var(--dark-text-color);
     border-radius: 50%;
     padding: 1rem;
     width: 100%;
@@ -465,7 +524,7 @@ textarea {
 }
 
 .detail-container .pomodoro-container .timer-container h4 {
-    color: black;
+    color: var(--dark-text-color);
     font-size: 1.5rem;
 }
 
@@ -478,8 +537,7 @@ textarea {
 
 .detail-container .pomodoro-container .action-btns .pomodoro-btn {
     padding: 1rem 2rem;
-    background-color: black;
-    color: white;
+    color: var(--dark-text-color);
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
@@ -518,7 +576,7 @@ textarea {
 }
 
 .date-time-weather-card .weather h2 {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 700;
 }
 
@@ -532,7 +590,7 @@ textarea {
 }
 
 .date-time-weather-card .weather .icon {
-    font-size: 6rem;
+    font-size: 4rem;
 }
 
 .date-time-weather-card .bottom {
@@ -545,9 +603,6 @@ textarea {
     padding: 1.5rem;
 }
 
-.date-time-weather-card .bottom .card h2 {
-    font-size: 4rem;
-}
 
 .date-time-weather-card .bottom .card h3 {
     font-size: 2rem;
@@ -557,7 +612,6 @@ textarea {
 .date-time-weather-card .bottom .card p {
     margin-top: 1.25rem;
     font-size: 1.25rem;
-    color: var(--text-color);
     line-height: 1.4;
 }
 
@@ -567,8 +621,13 @@ textarea {
     align-items: center;
 }
 
-.date-time-weather-card .bottom .time h2 {
-    font-size: 3rem;
-    font-weight: 400;
+.date-time-weather-card .bottom .time h2,.date-time-weather-card .bottom .date h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
     text-transform: uppercase;
+    text-align: center;
+}
+.date-time-weather-card .bottom .date {
+    display: flex;
+    flex-direction: column;
 }

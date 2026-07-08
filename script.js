@@ -4,8 +4,14 @@ let goals = [];
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
 const popupClose = document.querySelector(".close");
+const popupCard = document.querySelector(".popup-card");
 
 document.querySelectorAll(".feature").forEach((f) => {
+    const url = "./assets/images/background.jpg";
+    popupCard.style.backgroundImage = `url(${url})`;
+    popupCard.style.backgroundSize = "cover";
+    popupCard.style.backgroundPosition = "center";
+
     f.addEventListener("click", () => {
         popup.classList.add("show");
         if (f.dataset.feature === "todo-list") {
@@ -45,19 +51,19 @@ function todoListUI() {
                     <h2 class="page-title">Todo List</h2>
                 </section>
                 <section class="todo-list-container">
-                    <section class="todo-list-form">
+                    <section class="todo-list-form glass">
                         <h2 class="add-task-title">ADD TASK</h2>
                         <form action="#">
-                            <input type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus required>
-                            <textarea placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5" required></textarea>
+                            <input class="glass" type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus required>
+                            <textarea class="glass" placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5" required></textarea>
                             <label>
-                                <input type="checkbox" name="todo-isimp" id="todo-isimp">
+                                <input class="glass" type="checkbox" name="todo-isimp" id="todo-isimp">
                                 Mark as Important
                             </label>
-                            <button type="submit">Add Task</button>
+                            <button class="glass" type="submit">Add Task</button>
                         </form>
                     </section>
-                    <section class="todo-list-items"></section>
+                    <section class="todo-list-items glass"></section>
                 </section>
             </section>`;
 }
@@ -95,12 +101,12 @@ function todoList() {
         getTaskListFromLocalStorage();
         let sum = "";
         todolist.forEach((todo, idx) => {
-            sum += `<div class="task" id=${idx}>
+            sum += `<div class="task glass" id=${idx}>
                     <div class="task-info">
                         <h2 class="task-title">${todo.title}</h2>
-                        ${todo.isImportant ? `<span id=${idx} class="task-imp">Imp</span>` : ""}
+                        ${todo.isImportant ? `<span id=${idx} class="task-imp glass">Imp</span>` : ""}
                     </div>
-                    ${todo.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
+                    ${todo.isCompleted ? `<button id=${idx} class="completed-bt glass">Completed</button>` : `<button id=${idx} class="mark-complete-bt glass">Mark Complete</button>`}
                </div>`;
         });
         todoListItems.innerHTML = sum || "<h3>No task added yet</h3>";
@@ -241,15 +247,15 @@ function pomodoroUI() {
                 <section class="header">
                     <h2 class="page-title">Pomodoro Timer</h2>
                 </section>
-                <section class="pomodoro-container">
-                    <div class="timer-container">
+                <section class="pomodoro-container glass">
+                    <div class="timer-container glass">
                         <h2></h2>
                         <h4></h4>
                     </div>
                     <div class="action-btns">
-                        <button class="pomodoro-btn start-btn">Start</button>
-                        <button class="pomodoro-btn pause-btn">Pause</button>
-                        <button class="pomodoro-btn reset-btn">Reset</button>
+                        <button class="pomodoro-btn start-btn glass">Start</button>
+                        <button class="pomodoro-btn pause-btn glass">Pause</button>
+                        <button class="pomodoro-btn reset-btn glass">Reset</button>
                     </div>
                 </section>
             </section>`;
@@ -331,15 +337,15 @@ function goalsUI() {
                     <h2 class="page-title">Goals</h2>
                 </section>
                 <section class="goal-container">
-                    <section class="goal-form">
+                    <section class="goal-form glass">
                         <h2 class="add-goal-title">ADD GOAL</h2>
                         <form action="#">
-                            <input type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
-                            <textarea placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
-                            <button type="submit">Add Goal</button>
+                            <input class="glass" type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
+                            <textarea class="glass"  placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
+                            <button class="glass" type="submit">Add Goal</button>
                         </form>
                     </section>
-                    <section class="goal-items"></section>
+                    <section class="goal-items glass"></section>
                 </section>
             </section>`;
 }
@@ -374,11 +380,11 @@ function goalsList() {
         getGoalsFromLocalStorage();
         let sum = "";
         goals.forEach((goal, idx) => {
-            sum += `<div class="goal" id=${idx}>
+            sum += `<div class="goal glass" id=${idx}>
                     <div class="goal-info">
                         <h2 class="goal-title">${goal.title}</h2>
                     </div>
-                    ${goal.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
+                    ${goal.isCompleted ? `<button id=${idx} class="completed-bt glass">Completed</button>` : `<button id=${idx} class="mark-complete-bt glass">Mark Complete</button>`}
                </div>`;
         });
         goalsItems.innerHTML = sum || "<h3>No goal added yet</h3>";
