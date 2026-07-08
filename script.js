@@ -1,5 +1,5 @@
-todolist = [];
-goals = [];
+let todolist = [];
+let goals = [];
 
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
@@ -8,27 +8,27 @@ const popupClose = document.querySelector(".close");
 document.querySelectorAll(".feature").forEach((f) => {
     f.addEventListener("click", () => {
         popup.classList.add("show");
-        if (f.dataset.feature == "todo-list") {
+        if (f.dataset.feature === "todo-list") {
             popupContent.innerHTML = todoListUI();
             todoList();
         }
-        if (f.dataset.feature == "daily-planner") {
+        if (f.dataset.feature === "daily-planner") {
             popupContent.innerHTML = dailyPlannerUI();
             dailyPlanner();
         }
-        if (f.dataset.feature == "motivational-quotes") {
+        if (f.dataset.feature === "motivational-quotes") {
             popupContent.innerHTML = motivationalQuotesUI();
             motivationalQuotes();
         }
-        if (f.dataset.feature == "pomodoro-timer") {
+        if (f.dataset.feature === "pomodoro-timer") {
             popupContent.innerHTML = pomodoroUI();
             pomodoroTimer();
         }
-        if (f.dataset.feature == "goals") {
+        if (f.dataset.feature === "goals") {
             popupContent.innerHTML = goalsUI();
             goalsList();
         }
-    })
+    });
 });
 
 popupClose.addEventListener("click", () => {
@@ -48,10 +48,8 @@ function todoListUI() {
                     <section class="todo-list-form">
                         <h2 class="add-task-title">ADD TASK</h2>
                         <form action="#">
-                            <input type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus
-                                required>
-                            <textarea placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5"
-                                required></textarea>
+                            <input type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus required>
+                            <textarea placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5" required></textarea>
                             <label>
                                 <input type="checkbox" name="todo-isimp" id="todo-isimp">
                                 Mark as Important
@@ -59,15 +57,15 @@ function todoListUI() {
                             <button type="submit">Add Task</button>
                         </form>
                     </section>
-                    <section class="todo-list-items">
-                    </section>
+                    <section class="todo-list-items"></section>
                 </section>
             </section>`;
 }
+
 function todoList() {
     const form = document.querySelector("form");
 
-    form.addEventListener("submit", (e, idx) => {
+    form.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = document.querySelector("#todo-title");
         const desc = document.querySelector("#todo-desc");
@@ -77,10 +75,10 @@ function todoList() {
 
     function addTask(title, desc, isImportant) {
         todolist.push({
-            "title": title.value.trim(),
-            "description": desc.value.trim(),
-            "isCompleted": false,
-            "isImportant": isImportant.checked
+            title: title.value.trim(),
+            description: desc.value.trim(),
+            isCompleted: false,
+            isImportant: isImportant.checked
         });
         title.value = "";
         desc.value = "";
@@ -91,30 +89,28 @@ function todoList() {
         title.focus();
     }
 
-    const todo_list_items = document.querySelector(".todo-list-items");
+    const todoListItems = document.querySelector(".todo-list-items");
 
     function showTaskList() {
         getTaskListFromLocalStorage();
-        let sum = '';
+        let sum = "";
         todolist.forEach((todo, idx) => {
             sum += `<div class="task" id=${idx}>
                     <div class="task-info">
                         <h2 class="task-title">${todo.title}</h2>
-                        ${todo.isImportant ? `<span id=${idx} class="task-imp">Imp</span>` : ``}
+                        ${todo.isImportant ? `<span id=${idx} class="task-imp">Imp</span>` : ""}
                     </div>
                     ${todo.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
                </div>`;
-            todo_list_items.innerHTML = sum;
-
         });
+        todoListItems.innerHTML = sum || "<h3>No task added yet</h3>";
     }
 
-    todo_list_items.addEventListener("click", (e) => {
+    todoListItems.addEventListener("click", (e) => {
         if (e.target.classList.contains("mark-complete-bt")) {
             markCompleted(e.target.id);
         }
     });
-
 
     function markCompleted(idx) {
         todolist[idx].isCompleted = true;
@@ -122,16 +118,13 @@ function todoList() {
         showTaskList();
     }
 
-
     function getTaskListFromLocalStorage() {
         if (localStorage.getItem("tasklist")) {
             todolist = JSON.parse(localStorage.getItem("tasklist"));
-            todo_list_items.style.justifyContent = "flex-start";
-        }
-        else {
-            todo_list_items.style.justifyContent = "center";
-            todo_list_items.style.color = "#fff";
-            todo_list_items.innerHTML = "<h1>No task added yet</h1>";
+            todoListItems.style.justifyContent = "flex-start";
+        } else {
+            todolist = [];
+            todoListItems.style.justifyContent = "center";
         }
     }
 
@@ -142,7 +135,6 @@ function todoList() {
     showTaskList();
 }
 
-
 /**
  * Daily Planner UI and Logic
  */
@@ -151,60 +143,54 @@ function dailyPlannerUI() {
                 <section class="header">
                     <h2 class="page-title">Daily Planner</h2>
                 </section>
-                <section class="daily-planner-container">
-                </section>
+                <section class="daily-planner-container"></section>
             </section>`;
 }
+
 function dailyPlanner() {
     const start = 6;
     const end = 24;
-
-    let daily_planner = [];
+    let dailyPlanner = [];
 
     for (let i = start; i < end; i++) {
-        daily_planner.push(
-            {
-                "time": `${i}:00 - ${i + 1}:00`,
-                "plan": ""
-            }
-        )
+        dailyPlanner.push({
+            time: `${i}:00 - ${i + 1}:00`,
+            plan: ""
+        });
     }
-    let daily_planner_container = document.querySelector(".daily-planner-container");
 
+    const dailyPlannerContainer = document.querySelector(".daily-planner-container");
 
     function getDailyPlannerFromLocalStorage() {
         if (localStorage.getItem("dailyplanner")) {
-            daily_planner = JSON.parse(localStorage.getItem("dailyplanner"));
+            dailyPlanner = JSON.parse(localStorage.getItem("dailyplanner"));
         }
     }
+
     function setDailyPlannerToLocalStorage(dailyplanner) {
         localStorage.setItem("dailyplanner", JSON.stringify(dailyplanner));
     }
 
     getDailyPlannerFromLocalStorage();
     let sum = "";
-    daily_planner.forEach((elem, idx) => {
+    dailyPlanner.forEach((elem, idx) => {
         sum += `<div class="daily-planning-cell">
                     <p>${elem.time}</p>
-                    <input type="text" name="daily-plan-text" id = ${idx} placeholder="..." value=${elem.plan}>
+                    <input type="text" name="daily-plan-text" id="${idx}" placeholder="..." value="${elem.plan}">
                 </div>`;
     });
 
-    daily_planner_container.innerHTML = sum;
+    dailyPlannerContainer.innerHTML = sum;
 
-    let daily_planner_cells = document.querySelectorAll(".daily-planning-cell input");
-
-    daily_planner_cells.forEach((elem) => {
+    const dailyPlannerCells = document.querySelectorAll(".daily-planning-cell input");
+    dailyPlannerCells.forEach((elem) => {
         elem.addEventListener("input", () => {
-            console.log(elem.id, elem.value);
-            daily_planner[elem.id].plan = elem.value;
-            setDailyPlannerToLocalStorage(daily_planner);
+            dailyPlanner[elem.id].plan = elem.value;
+            setDailyPlannerToLocalStorage(dailyPlanner);
             getDailyPlannerFromLocalStorage();
         });
-    })
-
+    });
 }
-
 
 /**
  * Motivational Quotes UI and Logic
@@ -231,9 +217,10 @@ function motivationalQuotesUI() {
                 </section>
             </section>`;
 }
+
 function motivationalQuotes() {
-    let quoteElem = document.querySelector('.quote-container .quote-card .quote');
-    let authorElem = document.querySelector('.quote-container .quote-card .author');
+    const quoteElem = document.querySelector(".quote-container .quote-card .quote");
+    const authorElem = document.querySelector(".quote-container .quote-card .author");
 
     async function fetchQuote() {
         const response = await fetch("https://dummyjson.com/quotes/random");
@@ -241,6 +228,7 @@ function motivationalQuotes() {
         quoteElem.innerHTML = quote;
         authorElem.innerHTML = "- " + author;
     }
+
     fetchQuote();
 }
 
@@ -265,6 +253,7 @@ function pomodoroUI() {
                 </section>
             </section>`;
 }
+
 function pomodoroTimer() {
     const time = document.querySelector(".pomodoro-container .timer-container h2");
     const session = document.querySelector(".pomodoro-container .timer-container h4");
@@ -285,7 +274,7 @@ function pomodoroTimer() {
         minutes = Math.floor(workSessionTime / 60);
         seconds = Math.floor(workSessionTime % 60);
 
-        if (minutes == 0 && seconds == 0) {
+        if (minutes === 0 && seconds === 0) {
             isWorkSession = !isWorkSession;
             clearInterval(timerInterval);
             if (!isWorkSession) {
@@ -295,13 +284,12 @@ function pomodoroTimer() {
             }
             minutes = Math.floor(workSessionTime / 60);
             seconds = Math.floor(workSessionTime % 60);
-
         }
         updateUI();
     }
 
     function updateUI() {
-        time.innerHTML = `${String(minutes).padStart("2", "0")}:${String(seconds).padStart("2", "0")}`
+        time.innerHTML = `${String(minutes).padStart("2", "0")}:${String(seconds).padStart("2", "0")}`;
         session.innerHTML = isWorkSession ? "Work Session" : "Break Time";
     }
 
@@ -312,10 +300,9 @@ function pomodoroTimer() {
         timerInterval = setInterval(() => {
             if (workSessionTime > 0) {
                 workSessionTime--;
-
                 updateTimer();
             }
-        }, 10);
+        }, 1000);
     }
 
     function pauseTimer() {
@@ -335,7 +322,7 @@ function pomodoroTimer() {
 }
 
 /**
- * Todo List UI and Logic
+ * Goals UI and Logic
  */
 function goalsUI() {
     return `<section class="detail-container">
@@ -346,22 +333,20 @@ function goalsUI() {
                     <section class="goal-form">
                         <h2 class="add-goal-title">ADD GOAL</h2>
                         <form action="#">
-                            <input type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus
-                                required>
-                            <textarea placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5"
-                                required></textarea>
+                            <input type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
+                            <textarea placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
                             <button type="submit">Add Goal</button>
                         </form>
                     </section>
-                    <section class="goal-items">
-                    </section>
+                    <section class="goal-items"></section>
                 </section>
             </section>`;
 }
+
 function goalsList() {
     const form = document.querySelector("form");
 
-    form.addEventListener("submit", (e, idx) => {
+    form.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = document.querySelector("#goal-title");
         const desc = document.querySelector("#goal-desc");
@@ -370,9 +355,9 @@ function goalsList() {
 
     function addGoal(title, desc) {
         goals.push({
-            "title": title.value.trim(),
-            "description": desc.value.trim(),
-            "isCompleted": false
+            title: title.value.trim(),
+            description: desc.value.trim(),
+            isCompleted: false
         });
         title.value = "";
         desc.value = "";
@@ -382,11 +367,11 @@ function goalsList() {
         title.focus();
     }
 
-    const goals_items = document.querySelector(".goal-items");
+    const goalsItems = document.querySelector(".goal-items");
 
     function showGoals() {
         getGoalsFromLocalStorage();
-        let sum = '';
+        let sum = "";
         goals.forEach((goal, idx) => {
             sum += `<div class="goal" id=${idx}>
                     <div class="goal-info">
@@ -394,17 +379,15 @@ function goalsList() {
                     </div>
                     ${goal.isCompleted ? `<button id=${idx} class="completed-bt">Completed</button>` : `<button id=${idx} class="mark-complete-bt">Mark Complete</button>`}
                </div>`;
-            goals_items.innerHTML = sum;
-
         });
+        goalsItems.innerHTML = sum || "<h3>No goal added yet</h3>";
     }
 
-    goals_items.addEventListener("click", (e) => {
+    goalsItems.addEventListener("click", (e) => {
         if (e.target.classList.contains("mark-complete-bt")) {
             markCompleted(e.target.id);
         }
     });
-
 
     function markCompleted(idx) {
         goals[idx].isCompleted = true;
@@ -412,31 +395,26 @@ function goalsList() {
         showGoals();
     }
 
-
     function getGoalsFromLocalStorage() {
         if (localStorage.getItem("goals")) {
             goals = JSON.parse(localStorage.getItem("goals"));
-            goals_items.style.justifyContent = "flex-start";
-        }
-        else {
-            goal_items.style.justifyContent = "center";
-            goal_items.style.color = "#fff";
-            goal_items.innerHTML = "<h1>No goal added yet</h1>";
+            goalsItems.style.justifyContent = "flex-start";
+        } else {
+            goals = [];
+            goalsItems.style.justifyContent = "center";
         }
     }
 
-    function setGoalsFromLocalStorage(goals) {
-        localStorage.setItem("goals", JSON.stringify(goals));
+    function setGoalsFromLocalStorage(goalsList) {
+        localStorage.setItem("goals", JSON.stringify(goalsList));
     }
 
     showGoals();
 }
 
-
 /**
  * Dashboard Logic
  */
-
 function dashboard() {
     const city = "Mumbai";
     const region = "MH";
@@ -449,9 +427,9 @@ function dashboard() {
 
     async function callWeatherAPI() {
         // const key = "PLACE KEY HERE AND UNCOMMENT below method calling - callWeatherAPI";
-        let res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
+        const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
-        let data = await res.json();
+        const data = await res.json();
         setHeaderUI(data);
     }
     // callWeatherAPI();
@@ -463,12 +441,20 @@ function dashboard() {
 
         temp.innerHTML = `${data.current.temp_c}<span>°C</span>`;
         weather.innerHTML = `${data.current.condition.text}`;
-        weatherIcon.src = `${data.current.condition.icon}`;
+        weatherIcon.className = `icon weather-icon ${getWeatherIconClass(data.current.condition.text)}`;
+    }
+
+    function getWeatherIconClass(conditionText) {
+        const text = conditionText.toLowerCase();
+        if (text.includes("sun") || text.includes("clear")) return "ri-sun-line";
+        if (text.includes("rain") || text.includes("drizzle")) return "ri-umbrella-line";
+        if (text.includes("cloud")) return "ri-cloud-line";
+        if (text.includes("mist") || text.includes("fog")) return "ri-mist-line";
+        return "ri-sun-cloudy-line";
     }
 
     function setTime() {
         const timeText = document.querySelector(".date-time-weather-card .bottom .time .cur-time");
-
         const now = new Date();
         const timeFormatter = new Intl.DateTimeFormat("en-IN", {
             hour: "2-digit",
@@ -480,33 +466,25 @@ function dashboard() {
         const formattedTime = timeFormatter.format(now);
         timeText.innerHTML = `${formattedTime}`;
     }
+
     function setDate() {
         const dateText = document.querySelector(".date-time-weather-card .bottom .date .cur-date");
         const dayText = document.querySelector(".date-time-weather-card .bottom .date .cur-day");
         const monthYearText = document.querySelector(".date-time-weather-card .bottom .date .cur-month-year");
 
         const now = new Date();
-
         const date = now.getDate();
         const year = now.getFullYear();
-
-        const month = new Intl.DateTimeFormat("en-IN", {
-            month: "long"
-        }).format(now);
-
-        const day = new Intl.DateTimeFormat("en-IN", {
-            weekday: "long"
-        }).format(now);
+        const month = new Intl.DateTimeFormat("en-IN", { month: "long" }).format(now);
+        const day = new Intl.DateTimeFormat("en-IN", { weekday: "long" }).format(now);
 
         dateText.textContent = date;
         dayText.textContent = day;
         monthYearText.textContent = `${month}, ${year}`;
     }
 
-
     function setLocation() {
         const location = document.querySelector(".date-time-weather-card .location .location-txt");
-
         location.innerHTML = `${city}, ${region}`;
     }
 }
