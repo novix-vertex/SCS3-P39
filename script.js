@@ -16,7 +16,8 @@ document.querySelectorAll(".feature").forEach((f) => {
             dailyPlanner();
         }
         if (f.dataset.feature == "motivational-quotes") {
-            popupContent.innerHTML = `Motivational Quotes`;
+            popupContent.innerHTML = motivationalQuotesUI();
+            motivationalQuotes();
         }
         if (f.dataset.feature == "pomodoro-timer") {
             popupContent.innerHTML = pomodoroUI();
@@ -202,6 +203,44 @@ function dailyPlanner() {
 
 }
 
+
+/**
+ * Motivational Quotes UI and Logic
+ */
+function motivationalQuotesUI() {
+    return `<section class="detail-container">
+                <section class="header">
+                    <h2 class="page-title">Motivational Quote</h2>
+                </section>
+                <section class="quote-container">
+                    <div class="quote-card">
+                        <div class="quote-card-inner">
+                            <div class="quote-title">
+                                <h4 class="title">Quote of the Moment</h4>
+                                <img src="./assets/images/icons8-quote-50.png" alt="">
+                            </div>
+                            <h2 class="quote"></h2>
+                            <div class="author-title">
+                                <h4></h4>
+                                <h4 class="author"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>`;
+}
+function motivationalQuotes() {
+    let quoteElem = document.querySelector('.quote-container .quote-card .quote');
+    let authorElem = document.querySelector('.quote-container .quote-card .author');
+
+    async function fetchQuote() {
+        const response = await fetch("https://dummyjson.com/quotes/random");
+        const { quote, author } = await response.json();
+        quoteElem.innerHTML = quote;
+        authorElem.innerHTML = "- " + author;
+    }
+    fetchQuote();
+}
 
 /**
  * Pomodoro UI and Logic
