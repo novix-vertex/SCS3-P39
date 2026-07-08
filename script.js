@@ -201,7 +201,7 @@ function motivationalQuotesUI() {
                     <h2 class="page-title">Motivational Quote</h2>
                 </section>
                 <section class="quote-container">
-                    <div class="quote-card">
+                    <div class="quote-card glass">
                         <div class="quote-card-inner">
                             <div class="quote-title">
                                 <h4 class="title">Quote of the Moment</h4>
@@ -223,7 +223,8 @@ function motivationalQuotes() {
     const authorElem = document.querySelector(".quote-container .quote-card .author");
 
     async function fetchQuote() {
-        const response = await fetch("https://dummyjson.com/quotes/random");
+        // const response = await fetch("https://dummyjson.com/quotes/random");
+        const response = await fetch("https://motivational-spark-api.vercel.app/api/quotes/random");
         const { quote, author } = await response.json();
         quoteElem.innerHTML = quote;
         authorElem.innerHTML = "- " + author;
