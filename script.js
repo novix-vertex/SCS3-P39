@@ -60,7 +60,6 @@ function todoListUI() {
                 </section>
             </section>`;
 }
-
 function todoList() {
     const form = document.querySelector("form");
 
