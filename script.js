@@ -149,7 +149,7 @@ function dailyPlannerUI() {
                 <section class="header">
                     <h2 class="page-title">Daily Planner</h2>
                 </section>
-                <section class="daily-planner-container"></section>
+                <section class="daily-planner-container glass"></section>
             </section>`;
 }
 
@@ -180,9 +180,9 @@ function dailyPlanner() {
     getDailyPlannerFromLocalStorage();
     let sum = "";
     dailyPlanner.forEach((elem, idx) => {
-        sum += `<div class="daily-planning-cell">
+        sum += `<div class="daily-planning-cell glass">
                     <p>${elem.time}</p>
-                    <input type="text" name="daily-plan-text" id="${idx}" placeholder="..." value="${elem.plan}">
+                    <input type="text" name="daily-plan-text" id="${idx}" placeholder="Enter your plan" value="${elem.plan}">
                 </div>`;
     });
 
