@@ -459,8 +459,8 @@ function goalsList() {
  * Dashboard Logic
  */
 function dashboard() {
-    const city = "Mumbai";
-    const region = "MH";
+    const city = "Bhopal";
+    const region = "MP";
 
     setLocation();
     setDate();
@@ -473,26 +473,21 @@ function dashboard() {
         const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
         const data = await res.json();
-        console.log(data);
         setHeaderUI(data);
     }
     // callWeatherAPI();
 
     function setHeaderUI(data) {
-        const temp = document.querySelector(".date-time-weather-card .weather .left .temp");
-        const feelsLike = document.querySelector(".date-time-weather-card .weather .left .temp-feels-txt");
-        const weatherIcon = document.querySelector(".date-time-weather-card .weather .weather-icon");
-        const weather = document.querySelector(".date-time-weather-card .weather .left .weather-txt");
+        const temp = document.querySelector(".widgets .weather-card .temp");
+        const weatherIcon = document.querySelector(".widgets .weather-card .weather-icon");
+        const weather = document.querySelector(".widgets .weather-card .weather-txt");
 
-        const wind = document.querySelector(".date-time-weather-card .bottom .wind .wind-txt");
-        const humidity = document.querySelector(".date-time-weather-card .bottom .humidity .humidity-txt");
-        console.log(data.current.wind_dir);
-        console.log(data.current.humidity);
+        const wind = document.querySelector(".widgets .weather-card .bottom .wind .wind-txt");
+        const humidity = document.querySelector(".widgets .weather-card .bottom .humidity .humidity-txt");
+        
         temp.innerHTML = `${data.current.temp_c}<span>°C</span>`;
-        feelsLike.innerHTML = `Feels like ${data.current.feelslike_c}<span>°C</span>`;
         weather.textContent = `${data.current.condition.text}`;
         weatherIcon.className = `icon weather-icon ${getWeatherIconClass(data.current.condition.text)}`;
-
         wind.textContent = `${data.current.wind_dir} ${data.current.wind_kph} kph`;
         humidity.textContent = `${data.current.humidity}%`;
     }
@@ -535,7 +530,7 @@ function dashboard() {
     }
 
     function setLocation() {
-        const location = document.querySelector(".date-time-weather-card .location .location-txt");
+        const location = document.querySelector(".widgets .weather-card .location-txt");
         location.innerHTML = `${city}, ${region}`;
     }
 }
