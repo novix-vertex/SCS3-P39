@@ -447,20 +447,29 @@ function dashboard() {
         const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
         const data = await res.json();
+        console.log(data);
         setHeaderUI(data);
     }
     // callWeatherAPI();
 
     function setHeaderUI(data) {
         const temp = document.querySelector(".date-time-weather-card .weather .left .temp");
+        const feelsLike = document.querySelector(".date-time-weather-card .weather .left .temp-feels-txt");
         const weatherIcon = document.querySelector(".date-time-weather-card .weather .weather-icon");
         const weather = document.querySelector(".date-time-weather-card .weather .left .weather-txt");
 
+        const wind = document.querySelector(".date-time-weather-card .bottom .wind .wind-txt");
+        const humidity = document.querySelector(".date-time-weather-card .bottom .humidity .humidity-txt");
+        console.log(data.current.wind_dir);
+        console.log(data.current.humidity);
         temp.innerHTML = `${data.current.temp_c}<span>°C</span>`;
-        weather.innerHTML = `${data.current.condition.text}`;
+        feelsLike.innerHTML = `Feels like ${data.current.feelslike_c}<span>°C</span>`;
+        weather.textContent = `${data.current.condition.text}`;
         weatherIcon.className = `icon weather-icon ${getWeatherIconClass(data.current.condition.text)}`;
-    }
 
+        wind.textContent = `${data.current.wind_dir} ${data.current.wind_kph} kph`;
+        humidity.textContent = `${data.current.humidity}%`;
+    }
     function getWeatherIconClass(conditionText) {
         const text = conditionText.toLowerCase();
         if (text.includes("sun") || text.includes("clear")) return "ri-sun-line";
@@ -469,9 +478,8 @@ function dashboard() {
         if (text.includes("mist") || text.includes("fog")) return "ri-mist-line";
         return "ri-sun-cloudy-line";
     }
-
     function setTime() {
-        const timeText = document.querySelector(".date-time-weather-card .bottom .time .cur-time");
+        const timeText = document.querySelector(".navbar .time .cur-time");
         const now = new Date();
         const timeFormatter = new Intl.DateTimeFormat("en-IN", {
             hour: "2-digit",
@@ -485,9 +493,9 @@ function dashboard() {
     }
 
     function setDate() {
-        const dateText = document.querySelector(".date-time-weather-card .bottom .date .cur-date");
-        const dayText = document.querySelector(".date-time-weather-card .bottom .date .cur-day");
-        const monthYearText = document.querySelector(".date-time-weather-card .bottom .date .cur-month-year");
+        const dateText = document.querySelector(".navbar .date .cur-date");
+        const dayText = document.querySelector(".navbar .date .cur-day");
+        const monthYearText = document.querySelector(".navbar .date .cur-month-year");
 
         const now = new Date();
         const date = now.getDate();
