@@ -76,10 +76,12 @@ body {
 
 ::-webkit-scrollbar {
     background: var(--glass);
+    width: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--glass-border);
+    border-radius: 0.75rem;
 }
 
 .dashboard {
