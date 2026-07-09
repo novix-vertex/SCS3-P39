@@ -253,10 +253,10 @@ function motivationalQuotesUI() {
     return `<section class="detail-container">
                 <section class="quote-container">
                     <div class="quote-card glass">
-                        <div class="quote-card-inner">
+                        <div class="quote-card-inner glass">
                             <div class="quote-title">
                                 <h4 class="title">Quote of the Moment</h4>
-                                <img src="./assets/images/icons8-quote-50.png" alt="">
+                                <img src="${theme==='dark'?'./assets/images/quote-light-ic.png':'./assets/images/quote-dark-ic.png'}" alt="">
                             </div>
                             <h2 class="quote"></h2>
                             <div class="author-title">
