@@ -1,10 +1,27 @@
 let todolist = [];
 let goals = [];
+let theme = localStorage.getItem("theme") || "light";
 
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
 const popupClose = document.querySelector(".close");
 const popupCard = document.querySelector(".popup-card");
+
+const themeIcon = document.querySelector(".theme-ic");
+
+function applyTheme(nextTheme) {
+    theme = nextTheme;
+    document.body.classList.toggle("dark", theme === "dark");
+    themeIcon.classList.remove("ri-sun-fill", "ri-moon-fill");
+    themeIcon.classList.add(theme === "dark" ? "ri-moon-fill" : "ri-sun-fill");
+    localStorage.setItem("theme", theme);
+}
+
+function toggleTheme() {
+    applyTheme(theme === "dark" ? "light" : "dark");
+}
+
+applyTheme(theme);
 
 document.querySelectorAll(".feature").forEach((f) => {
     const url = "./assets/images/background.jpg";
@@ -41,6 +58,10 @@ popupClose.addEventListener("click", () => {
     popup.classList.remove("show");
 });
 
+
+themeIcon.addEventListener("click", () => {
+    toggleTheme();
+});
 
 /**
  * Todo List UI and Logic
@@ -519,3 +540,5 @@ function dashboard() {
  */
 
 dashboard();
+
+
