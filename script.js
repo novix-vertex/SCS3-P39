@@ -11,47 +11,47 @@ const popupCard = document.querySelector(".popup-card");
 const themeIcon = document.querySelector(".theme-ic");
 const background = document.querySelector(".background");
 
-function applyTheme(nextTheme, newBgURL) {
+function applyTheme(nextTheme) {
     theme = nextTheme;
-    bgURL = newBgURL;
-
+  
     document.body.classList.toggle("dark", theme === "dark");
     themeIcon.classList.remove("ri-sun-fill", "ri-moon-fill");
     themeIcon.classList.add(theme === "dark" ? "ri-moon-fill" : "ri-sun-fill");
+  
+    localStorage.setItem("theme", theme);
+}
+
+function applyWallpaper(newBgURL) {
+    bgURL = newBgURL;
+
     background.style.background = `url(${bgURL})`;
     background.style.backgroundSize = "cover";
     background.style.backgroundPosition = "center";
 
-    localStorage.setItem("theme", theme);
     localStorage.setItem("bgURL", bgURL);
 }
 
 function toggleTheme() {
 
-    applyTheme((theme === "dark" ? "light" : "dark"), (theme === "dark" ? "./assets/images/morning.jpg" : "./assets/images/night.png"));
+    applyTheme(theme === "dark" ? "light" : "dark");
 }
 
-applyTheme(theme, bgURL);
+applyTheme(theme);
 
 function autoTheme() {
     const hour = new Date().getHours();
     let imgURL = "./assets/images/morning.jpg";
-    let thm = "";
     if (hour >= 6 && hour < 17) {
         // Day (6 AM - 4:59 PM)
         imgURL = "./assets/images/morning.jpg";
-        thm = "light";
     } else if (hour >= 17 && hour < 20) {
         // Evening (5 PM - 7:59 PM)
         imgURL = "./assets/images/evening.png";
-        thm = "dark";
     } else {
         // Night (8 PM - 5:59 AM)
         imgURL = "./assets/images/night.png";
-        thm = "dark";
     }
-
-    applyTheme(thm, imgURL);
+    applyWallpaper(imgURL);
 }
 
 //autoTheme();
