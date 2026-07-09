@@ -219,6 +219,7 @@ function motivationalQuotesUI() {
                                 <h4 class="author"></h4>
                             </div>
                         </div>
+                        <button class="next-quote-btn glass">Next Quote</button>
                     </div>
                 </section>
             </section>`;
@@ -227,14 +228,23 @@ function motivationalQuotesUI() {
 function motivationalQuotes() {
     const quoteElem = document.querySelector(".quote-container .quote-card .quote");
     const authorElem = document.querySelector(".quote-container .quote-card .author");
+    const nextQuote = document.querySelector(".quote-container .next-quote-btn");
 
     async function fetchQuote() {
-        // const response = await fetch("https://dummyjson.com/quotes/random");
-        const response = await fetch("https://motivational-spark-api.vercel.app/api/quotes/random");
-        const { quote, author } = await response.json();
-        quoteElem.innerHTML = quote;
-        authorElem.innerHTML = "- " + author;
+        try {
+            // const response = await fetch("https://dummyjson.com/quotes/random");
+            const response = await fetch("https://motivational-spark-api.vercel.app/api/quotes/random");
+            const { quote, author } = await response.json();
+            quoteElem.textContent = quote;
+            authorElem.textContent = "- " + author;
+        }
+        catch (error) {
+            quoteElem.textContent = "Failed to load quote.";
+            authorElem.textContent = "";
+        }
     }
+
+    nextQuote.addEventListener("click", () => { fetchQuote() })
 
     fetchQuote();
 }

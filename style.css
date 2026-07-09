@@ -449,15 +449,20 @@ input::placeholder,textarea::placeholder {
 
 .quote-card {
     border-radius: 1rem;
-    color: black;
+    color: var(--dark-text-color);
     width: 50%;
     padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .quote-card-inner {
     background-color: white;
     border-radius: 0.87rem;
-    color: black;
+    color: var(--dark-text-color);
     width: 100%;
     height: 100%;
     display: flex;
@@ -500,12 +505,26 @@ input::placeholder,textarea::placeholder {
 
 .quote-card .quote {
     background-color: white;
-    color: var(--primary);
+    color: var(--dark-text-color);
     padding: 0.5rem;
     text-align: center;
     border-radius: 1rem;
     font-size: 2rem;
 }
+
+.next-quote-btn{
+    color:var(--dark-text-color);
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+}
+.next-quote-btn:active{
+    transform: scale(0.97);
+}
+
+
 .detail-container .pomodoro-container{
     padding:1.5rem;
 }
