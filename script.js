@@ -5,8 +5,8 @@ let bgURL = localStorage.getItem("bgURL") || "./assets/images/morning.jpg";
 
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
-const popupClose = document.querySelector(".close");
-const popupCard = document.querySelector(".popup-card");
+const popupClose = document.querySelector(".popup .popup-nav .dots .close");
+const popupPageTitle = document.querySelector(".popup .popup-nav .page-title");
 
 const themeIcon = document.querySelector(".theme-ic");
 const background = document.querySelector(".background");
@@ -57,30 +57,30 @@ function autoTheme() {
 //autoTheme();
 
 document.querySelectorAll(".feature").forEach((f) => {
-    const url = "./assets/images/background.jpg";
-    popupCard.style.backgroundImage = `url(${url})`;
-    popupCard.style.backgroundSize = "cover";
-    popupCard.style.backgroundPosition = "center";
-
     f.addEventListener("click", () => {
         popup.classList.add("show");
         if (f.dataset.feature === "todo-list") {
+            popupPageTitle.textContent = "Todo List";
             popupContent.innerHTML = todoListUI();
             todoList();
         }
         if (f.dataset.feature === "daily-planner") {
+            popupPageTitle.textContent = "Daily Planner";
             popupContent.innerHTML = dailyPlannerUI();
             dailyPlanner();
         }
         if (f.dataset.feature === "motivational-quotes") {
+            popupPageTitle.textContent = "Motivational Quotes";
             popupContent.innerHTML = motivationalQuotesUI();
             motivationalQuotes();
         }
         if (f.dataset.feature === "pomodoro-timer") {
+            popupPageTitle.textContent = "Pomodoro Timer";
             popupContent.innerHTML = pomodoroUI();
             pomodoroTimer();
         }
         if (f.dataset.feature === "goals") {
+            popupPageTitle.textContent = "Goals";
             popupContent.innerHTML = goalsUI();
             goalsList();
         }
@@ -101,9 +101,6 @@ themeIcon.addEventListener("click", () => {
  */
 function todoListUI() {
     return `<section class="detail-container">
-                <section class="header">
-                    <h2 class="page-title">Todo List</h2>
-                </section>
                 <section class="todo-list-container">
                     <section class="todo-list-form glass">
                         <h2 class="add-task-title">ADD TASK</h2>
@@ -200,9 +197,6 @@ function todoList() {
  */
 function dailyPlannerUI() {
     return `<section class="detail-container">
-                <section class="header">
-                    <h2 class="page-title">Daily Planner</h2>
-                </section>
                 <section class="daily-planner-container glass"></section>
             </section>`;
 }
@@ -257,9 +251,6 @@ function dailyPlanner() {
  */
 function motivationalQuotesUI() {
     return `<section class="detail-container">
-                <section class="header">
-                    <h2 class="page-title">Motivational Quote</h2>
-                </section>
                 <section class="quote-container">
                     <div class="quote-card glass">
                         <div class="quote-card-inner">
@@ -308,9 +299,6 @@ function motivationalQuotes() {
  */
 function pomodoroUI() {
     return `<section class="detail-container">
-                <section class="header">
-                    <h2 class="page-title">Pomodoro Timer</h2>
-                </section>
                 <section class="pomodoro-container glass">
                     <div class="timer-container glass">
                         <h2></h2>
@@ -397,9 +385,6 @@ function pomodoroTimer() {
  */
 function goalsUI() {
     return `<section class="detail-container">
-                <section class="header">
-                    <h2 class="page-title">Goals</h2>
-                </section>
                 <section class="goal-container">
                     <section class="goal-form glass">
                         <h2 class="add-goal-title">ADD GOAL</h2>
