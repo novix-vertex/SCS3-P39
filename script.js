@@ -8,12 +8,17 @@ const popupClose = document.querySelector(".close");
 const popupCard = document.querySelector(".popup-card");
 
 const themeIcon = document.querySelector(".theme-ic");
+const background = document.querySelector(".background");
 
 function applyTheme(nextTheme) {
     theme = nextTheme;
     document.body.classList.toggle("dark", theme === "dark");
     themeIcon.classList.remove("ri-sun-fill", "ri-moon-fill");
     themeIcon.classList.add(theme === "dark" ? "ri-moon-fill" : "ri-sun-fill");
+    background.style.background = `url(${(theme === "dark" ? "./assets/images/night.png" : "./assets/images/morning.jpg")})`;
+    background.style.backgroundSize = "cover";
+    background.style.backgroundPosition = "center";
+
     localStorage.setItem("theme", theme);
 }
 
@@ -524,8 +529,8 @@ function dashboard() {
         const month = new Intl.DateTimeFormat("en-IN", { month: "long" }).format(now);
         const day = new Intl.DateTimeFormat("en-IN", { weekday: "long" }).format(now);
 
+        dayText.textContent = day+",";
         dateText.textContent = date;
-        dayText.textContent = day;
         monthYearText.textContent = `${month}, ${year}`;
     }
 
