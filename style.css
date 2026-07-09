@@ -1,22 +1,11 @@
-/* :root {
-    --glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.25);
-
-    --overlay: rgba(0, 0, 0, 0.15);
-    --blur: 1.125rem;
-
-    --shadow: 0 0.675rem 1.875rem rgba(0, 0, 0, 0.25);
-    --text-color: #ffffff;
-    --dark-text-color: #431007;
-
-    --background-popup: rgba(0, 0, 0);
-} */
 :root {
-    --glass: rgba(255, 255, 255, 0.72);
-    --glass-border: rgba(255, 255, 255, 0.45);
+    /* --glass: rgba(82, 81, 81, 0.2); */
+    /* --glass: rgb(123, 38, 48,0.2); */
+    --glass-border: rgba(82, 81, 81, 0.6);
 
     --overlay: rgba(255, 255, 255, 0.08);
-    --blur: 1.125rem;
+    --blur: 0.625rem;
+    --linear-gradient: linear-gradient(#E6D2E0,#7B2630);
 
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 
@@ -31,7 +20,9 @@
     --glass-border: rgba(255, 255, 255, 0.08);
 
     --overlay: rgba(0, 0, 0, 0.5);
-    --blur: 1.125rem;
+    --blur: 0.625rem;
+    --linear-gradient: linear-gradient(rgb(61, 59, 59), rgb(27, 26, 26));
+
 
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 
@@ -719,4 +710,82 @@ textarea::placeholder {
 .date-time-weather-card .bottom .wind span {
     font-size: 0.5rem;
     font-weight: 400;
+}
+
+.dock {
+    display: flex;
+    gap: 0.75rem;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%);
+
+    background: rgba(82, 81, 81, 0.2);
+    backdrop-filter: blur(var(--blur));
+
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+
+    border-radius: 0.75rem;
+    z-index: 100;
+}
+
+.dock .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.5rem;
+    padding: 0.65rem;
+    aspect-ratio: 1/1;
+    background: var(--linear-gradient);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+}
+
+.dock .icon:hover {
+    transform: scale(1.2) translateY(-20%);
+}
+
+.dock .icon:hover+.icon,
+.dock .icon:has(+.icon:hover) {
+    transform: scale(1) translateY(-10%);
+}
+
+
+.dock .icon {
+    position: relative;
+}
+
+.dock .icon img {
+    height: 50px;
+    aspect-ratio: 1/1;
+}
+
+.dock .icon[title] {
+    pointer-events: auto;
+}
+
+.dock .icon[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.dock .icon[title]:hover::after {
+    opacity: 1;
 }
