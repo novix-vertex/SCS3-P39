@@ -13,11 +13,11 @@ const background = document.querySelector(".background");
 
 function applyTheme(nextTheme) {
     theme = nextTheme;
-  
+
     document.body.classList.toggle("dark", theme === "dark");
     themeIcon.classList.remove("ri-sun-fill", "ri-moon-fill");
     themeIcon.classList.add(theme === "dark" ? "ri-moon-fill" : "ri-sun-fill");
-  
+
     localStorage.setItem("theme", theme);
 }
 
@@ -256,7 +256,7 @@ function motivationalQuotesUI() {
                         <div class="quote-card-inner glass">
                             <div class="quote-title">
                                 <h4 class="title">Quote of the Moment</h4>
-                                <img src="${theme==='dark'?'./assets/images/quote-light-ic.png':'./assets/images/quote-dark-ic.png'}" alt="">
+                                <img src="${theme === 'dark' ? './assets/images/quote-light-ic.png' : './assets/images/quote-dark-ic.png'}" alt="">
                             </div>
                             <h2 class="quote"></h2>
                             <div class="author-title">
@@ -483,11 +483,15 @@ function dashboard() {
     }, 1000);
 
     async function callWeatherAPI() {
-        // const key = "PLACE KEY HERE AND UNCOMMENT below method calling - callWeatherAPI";
-        const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
+        try {
+            // const key = "PLACE KEY HERE AND UNCOMMENT below method calling - callWeatherAPI";
+            const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
-        const data = await res.json();
-        setHeaderUI(data);
+            const data = await res.json();
+            setHeaderUI(data);
+        } catch (error) {
+            alert("Failed to load weather api data...");
+        }
     }
     // callWeatherAPI();
 
