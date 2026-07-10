@@ -214,17 +214,19 @@ function todoList() {
         let sum = "";
         todolist.forEach((todo) => {
             sum += `<div class="task glass" data-task-id="${todo.tid}">
-                    <div class="task-info">
-                        ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
-                        <h2 class="task-title">${todo.title}</h2>
-                        <p class="task-desc">${todo.description}</p>
-                    </div>
-                    <div class="task-actions">
-                        ${todo.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
-                        <button class="edit-task-bt glass" title="Edit task" aria-label="Edit task"><i class="ri-pencil-line"></i></button>
-                        <button class="delete-task-bt glass" title="Delete task" aria-label="Delete task"><i class="ri-delete-bin-6-line"></i></button>
-                    </div>
-               </div>`;
+                        <div class="actions">
+                            ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
+                            <div class="task-actions">
+                                ${todo.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
+                                <button class="edit-task-bt glass" title="Edit task" aria-label="Edit task"><i class="ri-pencil-line"></i></button>
+                                <button class="delete-task-bt glass" title="Delete task" aria-label="Delete task"><i class="ri-delete-bin-6-line"></i></button>
+                            </div>
+                        </div>
+                        <div class="task-info">
+                            <h2 class="task-title">${todo.title}</h2>
+                            <p class="task-desc">${todo.description}</p>
+                        </div>
+                    </div>`;
         });
         todoListItems.innerHTML = sum || "<h3>No task added yet</h3>";
     }
@@ -376,14 +378,16 @@ function motivationalQuotes() {
 function pomodoroUI() {
     return `<section class="detail-container">
                 <section class="pomodoro-container glass">
-                    <div class="timer-container glass">
-                        <h2></h2>
-                        <h4></h4>
-                    </div>
-                    <div class="action-btns">
-                        <button class="pomodoro-btn start-btn glass">Start</button>
-                        <button class="pomodoro-btn pause-btn glass">Pause</button>
-                        <button class="pomodoro-btn reset-btn glass">Reset</button>
+                    <div class="inner-pomodoro-container glass">
+                        <div class="timer-container glass">
+                            <h2></h2>
+                            <h4></h4>
+                        </div>
+                        <div class="action-btns">
+                            <button class="pomodoro-btn start-btn glass">Start</button>
+                            <button class="pomodoro-btn pause-btn glass">Pause</button>
+                            <button class="pomodoro-btn reset-btn glass">Reset</button>
+                        </div>
                     </div>
                 </section>
             </section>`;
