@@ -215,9 +215,9 @@ function todoList() {
         todolist.forEach((todo) => {
             sum += `<div class="task glass" data-task-id="${todo.tid}">
                     <div class="task-info">
+                        ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
                         <h2 class="task-title">${todo.title}</h2>
                         <p class="task-desc">${todo.description}</p>
-                        ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
                     </div>
                     <div class="task-actions">
                         ${todo.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
@@ -605,15 +605,16 @@ function goalsList() {
 
         goals.forEach((goal) => {
             sum += `<div class="goal glass" data-goal-id="${goal.gid}">
-                    <div class="goal-info">
-                        <h2 class="goal-title">${goal.title}</h2>
-                        <p class="goal-desc">${goal.description}</p>
-                    </div>
-                    <div class="goal-actions">
+                     <div class="goal-actions">
                         ${goal.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
                         <button class="edit-goal-bt glass" title="Edit goal" aria-label="Edit goal"><i class="ri-pencil-line"></i></button>
                         <button class="delete-goal-bt glass" title="Delete goal" aria-label="Delete goal"><i class="ri-delete-bin-6-line"></i></button>
                     </div>
+                    <div class="goal-info">
+                        <h2 class="goal-title">${goal.title}</h2>
+                        <p class="goal-desc">${goal.description}</p>
+                    </div>
+                   
                </div>`;
         });
         goalsItems.innerHTML = sum;
@@ -668,7 +669,7 @@ function goalsList() {
  */
 function dashboard() {
     let city = localStorage.getItem("weatherCity") || "Bhopal";
-    
+
     const locationInput = document.querySelector(".widgets .weather-card .location-input");
     const locationButton = document.querySelector(".widgets .weather-card .location-btn");
 
