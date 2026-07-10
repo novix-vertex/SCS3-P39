@@ -118,7 +118,9 @@ body {
     color: var(--dark-text-color);
     opacity: 0.9;
 }
-
+.navbar .right .time {
+    text-transform: uppercase;
+}
 
 .navbar .logo {
     display: flex;
@@ -410,9 +412,11 @@ textarea::placeholder {
 .todo-list-container .todo-list-items .task .task-info,
 .goal-container .goal-items .goal .goal-info {
     display: flex;
+    flex-direction: column;
     gap: 8px;
     align-items: flex-start;
     justify-content: center;
+    flex: 1;
 }
 
 .todo-list-container .todo-list-items .task .task-title,
@@ -422,12 +426,43 @@ textarea::placeholder {
     font-weight: bolder;
 }
 
+.todo-list-container .todo-list-items .task .task-desc {
+    font-size: 0.95rem;
+    color: var(--dark-text-color);
+    opacity: 0.8;
+}
+
 .todo-list-container .todo-list-items .task .task-imp {
     font-size: 0.8rem;
     background-color: var(--dark-text-color);
     color: var(--text-color);
     padding: 4px 8px;
     border-radius: 8px;
+}
+
+.todo-list-container .todo-list-items .task .task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.todo-list-container .todo-list-items .task .task-actions button {
+    font-size: 0.95rem;
+    color: var(--dark-text-color);
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    pointer-events: all;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.todo-list-container .todo-list-items .task .task-actions .edit-task-bt {
+    background: rgba(11, 209, 11, 0.2);
+}
+
+.todo-list-container .todo-list-items .task .task-actions .delete-task-bt {
+    background: rgba(196, 12, 12, 0.2);
 }
 
 .todo-list-container .todo-list-items .task .mark-complete-bt,

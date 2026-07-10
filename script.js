@@ -120,64 +120,142 @@ function todoListUI() {
 }
 
 function todoList() {
-    const form = document.querySelector("form");
+    const form = document.querySelector(".todo-list-form form");
+    const titleInput = document.querySelector("#todo-title");
+    const descInput = document.querySelector("#todo-desc");
+    const isImportantInput = document.querySelector("#todo-isimp");
+    const submitButton = document.querySelector(".todo-list-form form button");
+    const taskTitleHeading = document.querySelector(".add-task-title");
+    const todoListItems = document.querySelector(".todo-list-items");
+
+    let editingTaskId = null;
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const title = document.querySelector("#todo-title");
-        const desc = document.querySelector("#todo-desc");
-        const isImportant = document.querySelector("#todo-isimp");
-        addTask(title, desc, isImportant);
+
+        const title = titleInput.value.trim();
+        const desc = descInput.value.trim();
+
+        if (!title || !desc) return;
+
+        if (editingTaskId) {
+            updateTask(editingTaskId, title, desc, isImportantInput.checked);
+        } else {
+            addTask(title, desc, isImportantInput.checked);
+        }
     });
 
     function addTask(title, desc, isImportant) {
         todolist.push({
-            title: title.value.trim(),
-            description: desc.value.trim(),
+            tid: "tid-" + Date.now(),
+            title,
+            description: desc,
             isCompleted: false,
-            isImportant: isImportant.checked
+            isImportant
         });
-        title.value = "";
-        desc.value = "";
-        isImportant.checked = false;
-        setTaskListFromLocalStorage(todolist);
 
+        resetTaskForm();
+        setTaskListFromLocalStorage(todolist);
         showTaskList();
-        title.focus();
     }
 
-    const todoListItems = document.querySelector(".todo-list-items");
+    function updateTask(taskId, title, desc, isImportant) {
+        const task = todolist.find((item) => item.tid === taskId);
+
+        if (task) {
+            task.title = title;
+            task.description = desc;
+            task.isImportant = isImportant;
+            setTaskListFromLocalStorage(todolist);
+            showTaskList();
+        }
+
+        resetTaskForm();
+    }
+
+    function resetTaskForm() {
+        titleInput.value = "";
+        descInput.value = "";
+        isImportantInput.checked = false;
+        editingTaskId = null;
+        submitButton.textContent = "Add Task";
+        taskTitleHeading.textContent = "ADD TASK";
+        titleInput.focus();
+    }
+
+    function startEditingTask(taskId) {
+        const task = todolist.find((item) => item.tid === taskId);
+
+        if (!task) return;
+
+        titleInput.value = task.title;
+        descInput.value = task.description;
+        isImportantInput.checked = task.isImportant;
+        editingTaskId = task.tid;
+        submitButton.textContent = "Update Task";
+        taskTitleHeading.textContent = "EDIT TASK";
+        titleInput.focus();
+    }
+
+    function deleteTask(taskId) {
+        todolist = todolist.filter((item) => item.tid !== taskId);
+        setTaskListFromLocalStorage(todolist);
+        showTaskList();
+    }
 
     function showTaskList() {
         getTaskListFromLocalStorage();
         let sum = "";
-        todolist.forEach((todo, idx) => {
-            sum += `<div class="task glass" id=${idx}>
+        todolist.forEach((todo) => {
+            sum += `<div class="task glass" data-task-id="${todo.tid}">
                     <div class="task-info">
                         <h2 class="task-title">${todo.title}</h2>
-                        ${todo.isImportant ? `<span id=${idx} class="task-imp glass">Imp</span>` : ""}
+                        <p class="task-desc">${todo.description}</p>
+                        ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
                     </div>
-                    ${todo.isCompleted ? `<button id=${idx} class="completed-bt glass">Completed</button>` : `<button id=${idx} class="mark-complete-bt glass">Mark Complete</button>`}
+                    <div class="task-actions">
+                        ${todo.isCompleted ? `<button class="completed-bt glass">Completed</button>` : `<button class="mark-complete-bt glass">Mark Complete</button>`}
+                        <button class="edit-task-bt glass">Edit</button>
+                        <button class="delete-task-bt glass">Delete</button>
+                    </div>
                </div>`;
         });
         todoListItems.innerHTML = sum || "<h3>No task added yet</h3>";
     }
 
     todoListItems.addEventListener("click", (e) => {
-        if (e.target.classList.contains("mark-complete-bt")) {
-            markCompleted(e.target.id);
+        const actionButton = e.target.closest("button");
+        if (!actionButton) return;
+
+        const taskCard = actionButton.closest(".task");
+        const taskId = taskCard?.dataset.taskId;
+
+        if (!taskId) return;
+
+        if (actionButton.classList.contains("mark-complete-bt")) {
+            markCompleted(taskId);
+        } else if (actionButton.classList.contains("edit-task-bt")) {
+            startEditingTask(taskId);
+        } else if (actionButton.classList.contains("delete-task-bt")) {
+            deleteTask(taskId);
         }
     });
 
-    function markCompleted(idx) {
-        todolist[idx].isCompleted = true;
-        setTaskListFromLocalStorage(todolist);
-        showTaskList();
+    function markCompleted(taskId) {
+        const task = todolist.find((item) => item.tid === taskId);
+        if (task) {
+            task.isCompleted = true;
+            setTaskListFromLocalStorage(todolist);
+            showTaskList();
+        }
     }
 
     function getTaskListFromLocalStorage() {
         if (localStorage.getItem("tasklist")) {
-            todolist = JSON.parse(localStorage.getItem("tasklist"));
+            todolist = JSON.parse(localStorage.getItem("tasklist")).map((task, index) => ({
+                ...task,
+                tid: task.tid || `tid-${Date.now()}-${index}`
+            }));
             todoListItems.style.justifyContent = "flex-start";
         } else {
             todolist = [];
