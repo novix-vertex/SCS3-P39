@@ -593,9 +593,9 @@ function goalsList() {
                         <p class="goal-desc">${goal.description}</p>
                     </div>
                     <div class="goal-actions">
-                        ${goal.isCompleted ? `<button class="completed-bt glass">Completed</button>` : `<button class="mark-complete-bt glass">Mark Complete</button>`}
-                        <button class="edit-goal-bt glass">Edit</button>
-                        <button class="delete-goal-bt glass">Delete</button>
+                        ${goal.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
+                        <button class="edit-goal-bt glass" title="Edit goal" aria-label="Edit goal"><i class="ri-pencil-line"></i></button>
+                        <button class="delete-goal-bt glass" title="Delete goal" aria-label="Delete goal"><i class="ri-delete-bin-6-line"></i></button>
                     </div>
                </div>`;
         });
