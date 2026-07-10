@@ -168,6 +168,33 @@ body {
     gap: 0.5rem;
 }
 
+.widgets .weather-card .weather-search {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.25rem;
+}
+
+.widgets .weather-card .weather-search .location-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    border-radius: 999px;
+    padding: 0.6rem 0.9rem;
+    background: rgba(255, 255, 255, 0.45);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.widgets .weather-card .weather-search .location-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    background: var(--glass-border);
+    color: var(--dark-text-color);
+}
+
 .widgets .weather-card .weather-icon {
     font-size: 3rem;
 }

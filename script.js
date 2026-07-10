@@ -650,8 +650,10 @@ function goalsList() {
  * Dashboard Logic
  */
 function dashboard() {
-    const city = "Bhopal";
-    const region = "MP";
+    let city = localStorage.getItem("weatherCity") || "Bhopal";
+    
+    const locationInput = document.querySelector(".widgets .weather-card .location-input");
+    const locationButton = document.querySelector(".widgets .weather-card .location-btn");
 
     setLocation();
     setDate();
@@ -659,6 +661,23 @@ function dashboard() {
         setTime();
         autoTheme();
     }, 1000);
+
+    locationInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            updateWeatherLocation();
+        }
+    });
+
+    locationButton.addEventListener("click", updateWeatherLocation);
+
+    function updateWeatherLocation() {
+        const nextCity = locationInput.value.trim() || city;
+        city = nextCity;
+        localStorage.setItem("weatherCity", city);
+        setLocation();
+        callWeatherAPI();
+    }
 
     async function callWeatherAPI() {
         try {
@@ -671,6 +690,7 @@ function dashboard() {
             alert("Failed to load weather api data...");
         }
     }
+
     // callWeatherAPI();
 
     function setHeaderUI(data) {
@@ -727,7 +747,9 @@ function dashboard() {
 
     function setLocation() {
         const location = document.querySelector(".widgets .weather-card .location-txt");
-        location.innerHTML = `${city}, ${region}`;
+        const displayCity = city || "Bhopal";
+        location.innerHTML = `${displayCity}`;
+        locationInput.value = displayCity;
     }
 }
 
