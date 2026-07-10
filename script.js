@@ -390,7 +390,7 @@ function goalsUI() {
                         <h2 class="add-goal-title">ADD GOAL</h2>
                         <form action="#">
                             <input class="glass" type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
-                            <textarea class="glass"  placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
+                            <textarea class="glass" placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
                             <button class="glass" type="submit">Add Goal</button>
                         </form>
                     </section>
@@ -400,55 +400,129 @@ function goalsUI() {
 }
 
 function goalsList() {
-    const form = document.querySelector("form");
+    const form = document.querySelector(".goal-form form");
+    const titleInput = document.querySelector("#goal-title");
+    const descInput = document.querySelector("#goal-desc");
+    const submitButton = document.querySelector(".goal-form form button");
+    const goalTitleHeading = document.querySelector(".add-goal-title");
+    const goalsItems = document.querySelector(".goal-items");
+
+    let editingGoalId = null;
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const title = document.querySelector("#goal-title");
-        const desc = document.querySelector("#goal-desc");
-        addGoal(title, desc);
+
+        const title = titleInput.value.trim();
+        const desc = descInput.value.trim();
+
+        if (!title || !desc) return;
+
+        if (editingGoalId) {
+            updateGoal(editingGoalId, title, desc);
+        } else {
+            addGoal(title, desc);
+        }
     });
 
     function addGoal(title, desc) {
         goals.push({
-            title: title.value.trim(),
-            description: desc.value.trim(),
-            isCompleted: false
+            gid: "gid-" + Math.floor(Math.random() * 10000000000),
+            title,
+            description: desc,
+            isCompleted: false,
+            createdAt: Date.now()
         });
-        title.value = "";
-        desc.value = "";
-        setGoalsFromLocalStorage(goals);
 
+        resetGoalForm();
+        setGoalsFromLocalStorage(goals);
         showGoals();
-        title.focus();
     }
 
-    const goalsItems = document.querySelector(".goal-items");
+    function updateGoal(goalId, title, desc) {
+        const goal = goals.find((item) => item.gid === goalId);
+
+        if (goal) {
+            goal.title = title;
+            goal.description = desc;
+            setGoalsFromLocalStorage(goals);
+            showGoals();
+        }
+
+        resetGoalForm();
+    }
+
+    function resetGoalForm() {
+        titleInput.value = "";
+        descInput.value = "";
+        editingGoalId = null;
+        submitButton.textContent = "Add Goal";
+        goalTitleHeading.textContent = "ADD GOAL";
+        titleInput.focus();
+    }
+
+    function editGoal(goalId) {
+        const goal = goals.find((item) => item.gid === goalId);
+
+        if (!goal) return;
+
+        titleInput.value = goal.title;
+        descInput.value = goal.description;
+        editingGoalId = goal.gid;
+        submitButton.textContent = "Update Goal";
+        goalTitleHeading.textContent = "EDIT GOAL";
+        titleInput.focus();
+    }
+
+    function deleteGoal(goalId) {
+        goals = goals.filter((item) => item.gid !== goalId);
+        setGoalsFromLocalStorage(goals);
+        showGoals();
+    }
 
     function showGoals() {
         getGoalsFromLocalStorage();
         let sum = "";
-        goals.forEach((goal, idx) => {
-            sum += `<div class="goal glass" id=${idx}>
+        goals.forEach((goal) => {
+            sum += `<div class="goal glass" data-goal-id="${goal.gid}">
                     <div class="goal-info">
                         <h2 class="goal-title">${goal.title}</h2>
+                        <p class="goal-desc">${goal.description}</p>
                     </div>
-                    ${goal.isCompleted ? `<button id=${idx} class="completed-bt glass">Completed</button>` : `<button id=${idx} class="mark-complete-bt glass">Mark Complete</button>`}
+                    <div class="goal-actions">
+                        ${goal.isCompleted ? `<button class="completed-bt glass">Completed</button>` : `<button class="mark-complete-bt glass">Mark Complete</button>`}
+                        <button class="edit-goal-bt glass">Edit</button>
+                        <button class="delete-goal-bt glass">Delete</button>
+                    </div>
                </div>`;
         });
         goalsItems.innerHTML = sum || "<h3>No goal added yet</h3>";
     }
 
     goalsItems.addEventListener("click", (e) => {
-        if (e.target.classList.contains("mark-complete-bt")) {
-            markCompleted(e.target.id);
+        const actionButton = e.target.closest("button");
+        if (!actionButton) return;
+
+        const goalCard = actionButton.closest(".goal");
+        const goalId = goalCard?.dataset.goalId;
+
+        if (!goalId) return;
+
+        if (actionButton.classList.contains("mark-complete-bt")) {
+            markCompleted(goalId);
+        } else if (actionButton.classList.contains("edit-goal-bt")) {
+            editGoal(goalId);
+        } else if (actionButton.classList.contains("delete-goal-bt")) {
+            deleteGoal(goalId);
         }
     });
 
-    function markCompleted(idx) {
-        goals[idx].isCompleted = true;
-        setGoalsFromLocalStorage(goals);
-        showGoals();
+    function markCompleted(goalId) {
+        const goal = goals.find((item) => item.gid === goalId);
+        if (goal) {
+            goal.isCompleted = true;
+            setGoalsFromLocalStorage(goals);
+            showGoals();
+        }
     }
 
     function getGoalsFromLocalStorage() {
