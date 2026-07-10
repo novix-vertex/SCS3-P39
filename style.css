@@ -12,23 +12,32 @@
     --dark-text-color: whitesmoke;
 
     --background-popup: #f9fafb;
+
+    --red: #b42318;
+    --green: #2f7d32;
+
+    --progress-bar:linear-gradient(90deg, #4ade80, #22c55e);
 }
 
 .dark {
     --glass: rgba(22, 17, 17, 0.438);
     --glass-border: rgba(255, 255, 255, 0.2);
     --blur: 0.75rem;
-
+    
     --overlay: rgba(0, 0, 0, 0.5);
     --linear-gradient: linear-gradient(rgb(61, 59, 59), rgb(27, 26, 26));
-
+    
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-
+    
     --text-color: #ffffff;
     --dark-text-color: whitesmoke;
-
+    
     --background-popup: #18181b;
-
+    
+    --red: #b42318;
+    --green: #2f7d32;
+    
+    --progress-bar:linear-gradient(90deg, #4ade80, #22c55e);
 }
 
 * {
@@ -496,13 +505,13 @@ input::placeholder {
 .todo-list-container .todo-list-items .task .task-actions .edit-task-bt,
 .goal-container .goal-items .goal .goal-actions .edit-goal-bt {
     background: rgba(76, 175, 80, 0.12);
-    color: #2f7d32;
+    color: var(--green);
 }
 
 .todo-list-container .todo-list-items .task .task-actions .delete-task-bt,
 .goal-container .goal-items .goal .goal-actions .delete-goal-bt {
     background: rgba(220, 53, 69, 0.12);
-    color: #b42318;
+    color: var(--red);
 }
 
 .goal-container .goal-items .goals-progress {
@@ -534,7 +543,7 @@ input::placeholder {
 .goal-container .goal-items .goals-progress-fill {
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, #4ade80, #22c55e);
+    background: var(--progress-bar);
     transition: width 0.2s ease;
 }
 
