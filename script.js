@@ -198,6 +198,12 @@ function todoList() {
     }
 
     function deleteTask(taskId) {
+        const task = todolist.find((item) => item.tid === taskId);
+        if (!task) return;
+
+        const confirmed = window.confirm(`Are you sure, you want to delete task - "${task.title}"?`);
+        if (!confirmed) return;
+
         todolist = todolist.filter((item) => item.tid !== taskId);
         setTaskListFromLocalStorage(todolist);
         showTaskList();
@@ -214,9 +220,9 @@ function todoList() {
                         ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
                     </div>
                     <div class="task-actions">
-                        ${todo.isCompleted ? `<button class="completed-bt glass">Completed</button>` : `<button class="mark-complete-bt glass">Mark Complete</button>`}
-                        <button class="edit-task-bt glass">Edit</button>
-                        <button class="delete-task-bt glass">Delete</button>
+                        ${todo.isCompleted ? `<button class="completed-bt glass" title="Completed" aria-label="Completed"><i class="ri-check-double-line"></i></button>` : `<button class="mark-complete-bt glass" title="Mark complete" aria-label="Mark complete"><i class="ri-check-line"></i></button>`}
+                        <button class="edit-task-bt glass" title="Edit task" aria-label="Edit task"><i class="ri-pencil-line"></i></button>
+                        <button class="delete-task-bt glass" title="Delete task" aria-label="Delete task"><i class="ri-delete-bin-6-line"></i></button>
                     </div>
                </div>`;
         });
@@ -563,6 +569,12 @@ function goalsList() {
     }
 
     function deleteGoal(goalId) {
+        const goal = goals.find((item) => item.gid === goalId);
+        if (!goal) return;
+
+        const confirmed = window.confirm(`Are you sure, you want to delete goal - "${goal.title}"?`);
+        if (!confirmed) return;
+
         goals = goals.filter((item) => item.gid !== goalId);
         setGoalsFromLocalStorage(goals);
         showGoals();
@@ -570,6 +582,11 @@ function goalsList() {
 
     function showGoals() {
         getGoalsFromLocalStorage();
+
+        if (goals.length === 0) {
+            goalsItems.innerHTML = "<h3>No goal added yet</h3>";
+            return;
+        }
 
         const completedGoals = goals.filter((goal) => goal.isCompleted).length;
         const totalGoals = goals.length;
@@ -599,7 +616,7 @@ function goalsList() {
                     </div>
                </div>`;
         });
-        goalsItems.innerHTML = sum || "<h3>No goal added yet</h3>";
+        goalsItems.innerHTML = sum;
     }
 
     goalsItems.addEventListener("click", (e) => {

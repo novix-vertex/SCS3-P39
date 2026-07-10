@@ -469,27 +469,37 @@ textarea::placeholder {
 
 .todo-list-container .todo-list-items .task .task-actions {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.4rem;
 }
 
 .todo-list-container .todo-list-items .task .task-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.95rem;
     color: var(--dark-text-color);
-    padding: 0.75rem 1rem;
-    border-radius: 5px;
+    padding: 0.4rem;
+    border-radius: 999px;
     pointer-events: all;
     cursor: pointer;
-    width: fit-content;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.todo-list-container .todo-list-items .task .task-actions button i {
+    font-size: 0.95rem;
 }
 
 .todo-list-container .todo-list-items .task .task-actions .edit-task-bt {
-    background: rgba(11, 209, 11, 0.2);
+    background: rgba(76, 175, 80, 0.16);
 }
 
 .todo-list-container .todo-list-items .task .task-actions .delete-task-bt {
-    background: rgba(196, 12, 12, 0.2);
+    background: rgba(220, 53, 69, 0.16);
 }
 
 .todo-list-container .todo-list-items .task .mark-complete-bt,
