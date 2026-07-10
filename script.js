@@ -257,16 +257,8 @@ function todoList() {
     }
 
     function getTaskListFromLocalStorage() {
-        if (localStorage.getItem("tasklist")) {
-            todolist = JSON.parse(localStorage.getItem("tasklist")).map((task, index) => ({
-                ...task,
-                tid: task.tid || `tid-${Date.now()}-${index}`
-            }));
-            todoListItems.style.justifyContent = "flex-start";
-        } else {
-            todolist = [];
-            todoListItems.style.justifyContent = "center";
-        }
+        const storedTasks = localStorage.getItem("tasklist");
+        todolist = storedTasks ? JSON.parse(storedTasks) : [];
     }
 
     function setTaskListFromLocalStorage(tasklist) {
@@ -648,13 +640,8 @@ function goalsList() {
     }
 
     function getGoalsFromLocalStorage() {
-        if (localStorage.getItem("goals")) {
-            goals = JSON.parse(localStorage.getItem("goals"));
-            goalsItems.style.justifyContent = "flex-start";
-        } else {
-            goals = [];
-            goalsItems.style.justifyContent = "center";
-        }
+        const storedGoals = localStorage.getItem("goals");
+        goals = storedGoals ? JSON.parse(storedGoals) : [];
     }
 
     function setGoalsFromLocalStorage(goalsList) {
