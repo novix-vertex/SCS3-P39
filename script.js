@@ -105,7 +105,7 @@ function todoListUI() {
                     <section class="todo-list-form glass">
                         <h2 class="add-task-title">ADD TASK</h2>
                         <form action="#">
-                            <input class="glass" type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus required>
+                            <input class="glass" type="text" placeholder="Write your task here..." name="todo-title" id="todo-title" autofocus required>
                             <label>
                                 <input class="glass" type="checkbox" name="todo-isimp" id="todo-isimp">
                                 Mark as Important
@@ -207,6 +207,9 @@ function todoList() {
         let sum = "";
         todolist.forEach((todo) => {
             sum += `<div class="task glass" data-task-id="${todo.tid}">
+                        <div class="task-info">
+                            <h2 class="task-title">${todo.title}</h2>
+                        </div>
                         <div class="actions">
                             ${todo.isImportant ? `<span class="task-imp glass">Imp</span>` : ""}
                             <div class="task-actions">
@@ -214,9 +217,6 @@ function todoList() {
                                 <button class="edit-task-bt glass" title="Edit task" aria-label="Edit task"><i class="ri-pencil-line"></i></button>
                                 <button class="delete-task-bt glass" title="Delete task" aria-label="Delete task"><i class="ri-delete-bin-6-line"></i></button>
                             </div>
-                        </div>
-                        <div class="task-info">
-                            <h2 class="task-title">${todo.title}</h2>
                         </div>
                     </div>`;
         });
@@ -472,7 +472,7 @@ function goalsUI() {
                     <section class="goal-form glass">
                         <h2 class="add-goal-title">ADD GOAL</h2>
                         <form action="#">
-                            <input class="glass" type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
+                            <input class="glass" type="text" placeholder="Type you goal here...." name="goal-title" id="goal-title" autofocus required>
                             <button class="glass" type="submit">Add Goal</button>
                         </form>
                     </section>
