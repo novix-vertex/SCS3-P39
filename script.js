@@ -576,7 +576,7 @@ function goalsList() {
         let sum = `
             <div class="goals-progress glass">
                 <div class="goals-progress-info">
-                    <span>Goals Progress</span>
+                    <span>Goals Progress (${progressPercent}%) </span>
                     <strong>${completedGoals}/${totalGoals} completed</strong>
                 </div>
                 <div class="goals-progress-bar">

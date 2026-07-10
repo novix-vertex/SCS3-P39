@@ -143,7 +143,6 @@ body {
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1.5rem;
-    background: transparent;
     background: var(--glass-border);
 }
 
@@ -463,7 +462,8 @@ input::placeholder {
     align-items: center;
 }
 
-.todo-list-container .todo-list-items .task .task-actions {
+.todo-list-container .todo-list-items .task .task-actions,
+.goal-container .goal-items .goal .goal-actions {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -471,58 +471,37 @@ input::placeholder {
     width: 100%;
 }
 
-.todo-list-container .todo-list-items .task .task-actions button {
+.todo-list-container .todo-list-items .task .task-actions button,
+.goal-container .goal-items .goal .goal-actions button {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.95rem;
-    color: #334155;
+    color: var(--dark-text-color);
     padding: 0.4rem;
     border-radius: 999px;
-    pointer-events: all;
     cursor: pointer;
     width: 2rem;
     height: 2rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(15, 23, 42, 0.06);
-    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+    background: rgba(229, 219, 219, 0.12);
+    border: none;
 }
 
-.todo-list-container .todo-list-items .task .task-actions button i {
+.todo-list-container .todo-list-items .task .task-actions button i,
+.goal-container .goal-items .goal .goal-actions button i {
     font-size: 0.95rem;
 }
 
-.todo-list-container .todo-list-items .task .task-actions .edit-task-bt {
+.todo-list-container .todo-list-items .task .task-actions .edit-task-bt,
+.goal-container .goal-items .goal .goal-actions .edit-goal-bt {
     background: rgba(76, 175, 80, 0.12);
     color: #2f7d32;
 }
 
-.todo-list-container .todo-list-items .task .task-actions .delete-task-bt {
+.todo-list-container .todo-list-items .task .task-actions .delete-task-bt,
+.goal-container .goal-items .goal .goal-actions .delete-goal-bt {
     background: rgba(220, 53, 69, 0.12);
     color: #b42318;
-}
-
-.todo-list-container .todo-list-items .task .mark-complete-bt,
-.goal-container .goal-items .goal .mark-complete-bt {
-    font-size: 1rem;
-    color: var(--dark-text-color);
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    pointer-events: all;
-    cursor: pointer;
-    width: 200px;
-}
-
-.todo-list-container .todo-list-items .task .completed-bt,
-.goal-container .goal-items .goal .completed-bt {
-    font-size: 1rem;
-    color: var(--dark-text-color);
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    opacity: 50%;
-    pointer-events: none;
-    cursor: none;
-    width: 200px;
 }
 
 .goal-container .goal-items .goals-progress {
@@ -558,61 +537,6 @@ input::placeholder {
     transition: width 0.2s ease;
 }
 
-.goal-container .goal-items .goal .goal-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    flex: 1;
-    width: 100%;
-    padding-top: 0.15rem;
-}
-
-.goal-container .goal-items .goal .goal-title {
-    font-size: 1.02rem;
-    color: var(--dark-text-color);
-    font-weight: 700;
-}
-
-
-
-.goal-container .goal-items .goal .goal-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.35rem;
-    width: 100%;
-}
-
-.goal-container .goal-items .goal .goal-actions button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    color: #334155;
-    padding: 0.4rem;
-    border-radius: 999px;
-    pointer-events: all;
-    cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(15, 23, 42, 0.06);
-    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
-}
-
-.goal-container .goal-items .goal .goal-actions button i {
-    font-size: 0.95rem;
-}
-
-.goal-container .goal-items .goal .goal-actions .edit-goal-bt {
-    background: rgba(76, 175, 80, 0.12);
-    color: #2f7d32;
-}
-
-.goal-container .goal-items .goal .goal-actions .delete-goal-bt {
-    background: rgba(220, 53, 69, 0.12);
-    color: #b42318;
-}
 
 .daily-planner-container {
     height: 100%;
@@ -699,7 +623,6 @@ input::placeholder {
 .quote-card .author-title .author {
     color: var(--dark-text-color);
     padding: 0.5rem;
-    width: fit-content;
     border-radius: 0.5rem;
     width: 100%;
     font-size: 1.5rem;
