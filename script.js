@@ -570,7 +570,22 @@ function goalsList() {
 
     function showGoals() {
         getGoalsFromLocalStorage();
-        let sum = "";
+
+        const completedGoals = goals.filter((goal) => goal.isCompleted).length;
+        const totalGoals = goals.length;
+        const progressPercent = totalGoals ? Math.round((completedGoals / totalGoals) * 100) : 0;
+
+        let sum = `
+            <div class="goals-progress glass">
+                <div class="goals-progress-info">
+                    <span>Goals Progress</span>
+                    <strong>${completedGoals}/${totalGoals} completed</strong>
+                </div>
+                <div class="goals-progress-bar">
+                    <div class="goals-progress-fill" style="width: ${progressPercent}%"></div>
+                </div>
+            </div>`;
+
         goals.forEach((goal) => {
             sum += `<div class="goal glass" data-goal-id="${goal.gid}">
                     <div class="goal-info">
