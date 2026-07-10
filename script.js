@@ -412,15 +412,26 @@ function pomodoroTimer() {
         seconds = Math.floor(workSessionTime % 60);
 
         if (minutes === 0 && seconds === 0) {
+            const endedSession = isWorkSession ? "Work session" : "Break";
+            const nextSession = isWorkSession ? "Break time" : "Work session";
+
             isWorkSession = !isWorkSession;
             clearInterval(timerInterval);
+
             if (!isWorkSession) {
                 workSessionTime = breakTime;
             } else {
                 workSessionTime = 1800;
             }
+
             minutes = Math.floor(workSessionTime / 60);
             seconds = Math.floor(workSessionTime % 60);
+            updateUI();
+            setTimeout(() => {
+                window.alert(`${endedSession} ended. ${nextSession} ready.`);
+
+            }, 2000);
+            return;
         }
         updateUI();
     }
