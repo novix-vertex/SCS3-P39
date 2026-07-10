@@ -1,9 +1,9 @@
 :root {
-    --glass: rgb(108, 59, 50.0.2);
-    --glass-border: rgba(82, 81, 81, 0.6);
+    --glass: rgba(22, 17, 17, 0.438);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --blur: 0.75rem;
 
     --overlay: rgba(255, 255, 255, 0.08);
-    --blur: 0.625rem;
     --linear-gradient: linear-gradient(#ffffff99, #ffffff);
 
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
@@ -15,11 +15,11 @@
 }
 
 .dark {
-    --glass: rgba(28, 28, 30, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass: rgba(22, 17, 17, 0.438);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --blur: 0.75rem;
 
     --overlay: rgba(0, 0, 0, 0.5);
-    --blur: 0.625rem;
     --linear-gradient: linear-gradient(rgb(61, 59, 59), rgb(27, 26, 26));
 
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
@@ -68,10 +68,12 @@ body {
 }
 
 .glass {
+    padding: 20px;
     background: var(--glass);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow);
     backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    color: whitesmoke;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 ::-webkit-scrollbar {
