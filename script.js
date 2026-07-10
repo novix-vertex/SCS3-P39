@@ -106,7 +106,6 @@ function todoListUI() {
                         <h2 class="add-task-title">ADD TASK</h2>
                         <form action="#">
                             <input class="glass" type="text" placeholder="Task Title" name="todo-title" id="todo-title" autofocus required>
-                            <textarea class="glass" placeholder="Task Description" name="todo-desc" id="todo-desc" rows="5" required></textarea>
                             <label>
                                 <input class="glass" type="checkbox" name="todo-isimp" id="todo-isimp">
                                 Mark as Important
@@ -122,7 +121,6 @@ function todoListUI() {
 function todoList() {
     const form = document.querySelector(".todo-list-form form");
     const titleInput = document.querySelector("#todo-title");
-    const descInput = document.querySelector("#todo-desc");
     const isImportantInput = document.querySelector("#todo-isimp");
     const submitButton = document.querySelector(".todo-list-form form button");
     const taskTitleHeading = document.querySelector(".add-task-title");
@@ -134,22 +132,20 @@ function todoList() {
         e.preventDefault();
 
         const title = titleInput.value.trim();
-        const desc = descInput.value.trim();
-
-        if (!title || !desc) return;
+      
+        if (!title) return;
 
         if (editingTaskId) {
-            updateTask(editingTaskId, title, desc, isImportantInput.checked);
+            updateTask(editingTaskId, title, isImportantInput.checked);
         } else {
-            addTask(title, desc, isImportantInput.checked);
+            addTask(title, isImportantInput.checked);
         }
     });
 
-    function addTask(title, desc, isImportant) {
+    function addTask(title, isImportant) {
         todolist.push({
             tid: "tid-" + Date.now(),
             title,
-            description: desc,
             isCompleted: false,
             isImportant
         });
@@ -159,12 +155,11 @@ function todoList() {
         showTaskList();
     }
 
-    function updateTask(taskId, title, desc, isImportant) {
+    function updateTask(taskId, title, isImportant) {
         const task = todolist.find((item) => item.tid === taskId);
 
         if (task) {
             task.title = title;
-            task.description = desc;
             task.isImportant = isImportant;
             setTaskListFromLocalStorage(todolist);
             showTaskList();
@@ -175,7 +170,6 @@ function todoList() {
 
     function resetTaskForm() {
         titleInput.value = "";
-        descInput.value = "";
         isImportantInput.checked = false;
         editingTaskId = null;
         submitButton.textContent = "Add Task";
@@ -189,7 +183,6 @@ function todoList() {
         if (!task) return;
 
         titleInput.value = task.title;
-        descInput.value = task.description;
         isImportantInput.checked = task.isImportant;
         editingTaskId = task.tid;
         submitButton.textContent = "Update Task";
@@ -224,7 +217,6 @@ function todoList() {
                         </div>
                         <div class="task-info">
                             <h2 class="task-title">${todo.title}</h2>
-                            <p class="task-desc">${todo.description}</p>
                         </div>
                     </div>`;
         });
@@ -481,7 +473,6 @@ function goalsUI() {
                         <h2 class="add-goal-title">ADD GOAL</h2>
                         <form action="#">
                             <input class="glass" type="text" placeholder="Goal Title" name="goal-title" id="goal-title" autofocus required>
-                            <textarea class="glass" placeholder="Goal Description" name="goal-desc" id="goal-desc" rows="5" required></textarea>
                             <button class="glass" type="submit">Add Goal</button>
                         </form>
                     </section>
@@ -493,7 +484,6 @@ function goalsUI() {
 function goalsList() {
     const form = document.querySelector(".goal-form form");
     const titleInput = document.querySelector("#goal-title");
-    const descInput = document.querySelector("#goal-desc");
     const submitButton = document.querySelector(".goal-form form button");
     const goalTitleHeading = document.querySelector(".add-goal-title");
     const goalsItems = document.querySelector(".goal-items");
@@ -504,22 +494,20 @@ function goalsList() {
         e.preventDefault();
 
         const title = titleInput.value.trim();
-        const desc = descInput.value.trim();
-
-        if (!title || !desc) return;
+        
+        if (!title) return;
 
         if (editingGoalId) {
-            updateGoal(editingGoalId, title, desc);
+            updateGoal(editingGoalId, title);
         } else {
-            addGoal(title, desc);
+            addGoal(title);
         }
     });
 
-    function addGoal(title, desc) {
+    function addGoal(title) {
         goals.push({
-            gid: "gid-" + Math.floor(Math.random() * 10000000000),
+            gid: "gid-" + Date.now(),
             title,
-            description: desc,
             isCompleted: false,
             createdAt: Date.now()
         });
@@ -529,12 +517,11 @@ function goalsList() {
         showGoals();
     }
 
-    function updateGoal(goalId, title, desc) {
+    function updateGoal(goalId, title) {
         const goal = goals.find((item) => item.gid === goalId);
 
         if (goal) {
             goal.title = title;
-            goal.description = desc;
             setGoalsFromLocalStorage(goals);
             showGoals();
         }
@@ -544,7 +531,6 @@ function goalsList() {
 
     function resetGoalForm() {
         titleInput.value = "";
-        descInput.value = "";
         editingGoalId = null;
         submitButton.textContent = "Add Goal";
         goalTitleHeading.textContent = "ADD GOAL";
@@ -557,7 +543,6 @@ function goalsList() {
         if (!goal) return;
 
         titleInput.value = goal.title;
-        descInput.value = goal.description;
         editingGoalId = goal.gid;
         submitButton.textContent = "Update Goal";
         goalTitleHeading.textContent = "EDIT GOAL";
@@ -608,7 +593,6 @@ function goalsList() {
                     </div>
                     <div class="goal-info">
                         <h2 class="goal-title">${goal.title}</h2>
-                        <p class="goal-desc">${goal.description}</p>
                     </div>
                    
                </div>`;

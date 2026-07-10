@@ -468,13 +468,6 @@ textarea::placeholder {
     line-height: 1.35;
 }
 
-.todo-list-container .todo-list-items .task .task-desc,
-.goal-container .goal-items .goal .goal-desc {
-    font-size: 0.9rem;
-    color: var(--dark-text-color);
-    opacity: 0.6;
-    font-weight: 300;
-}
 
 .todo-list-container .todo-list-items .task .task-imp {
     font-size: 0.8rem;
@@ -497,7 +490,6 @@ textarea::placeholder {
     align-items: center;
     gap: 0.35rem;
     width: 100%;
-    background: var(--glass);
 }
 
 .todo-list-container .todo-list-items .task .task-actions button {
