@@ -720,6 +720,7 @@ function dashboard() {
     async function callWeatherAPI() {
         try {
             // const key = "PLACE KEY HERE AND UNCOMMENT below method calling - callWeatherAPI";
+            const key = "56ea21ffd2164c20b1374741261207";
             const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
             const data = await res.json();
@@ -729,7 +730,7 @@ function dashboard() {
         }
     }
 
-    // callWeatherAPI();
+    callWeatherAPI();
 
     function setHeaderUI(data) {
         const temp = document.querySelector(".widgets .weather-card .temp");

@@ -1,5 +1,5 @@
 :root {
-    --glass: rgba(22, 17, 17, 0.438);
+    --glass: rgba(22, 17, 17, 0.338);
     --glass-border: rgba(255, 255, 255, 0.2);
     --blur: 0.75rem;
 
@@ -34,7 +34,7 @@
 }
 
 .dark {
-    --glass: rgba(22, 17, 17, 0.438);
+    --glass: rgba(22, 17, 17, 0.738);
     --glass-border: rgba(255, 255, 255, 0.2);
     --blur: 0.75rem;
 
