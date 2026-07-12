@@ -132,7 +132,7 @@ function todoList() {
         e.preventDefault();
 
         const title = titleInput.value.trim();
-      
+
         if (!title) return;
 
         if (editingTaskId) {
@@ -334,8 +334,11 @@ function motivationalQuotesUI() {
                                 <h4 class="author"></h4>
                             </div>
                         </div>
-                        <button class="next-quote-btn glass">Next Quote</button>
-                    </div>
+                        <div className="quote-btns">
+                            <button class="next-quote-btn glass">Next Quote</button>
+                            <button class="copy-quote-btn glass">Copy Quote</button>
+                        </div>
+                        </div>
                 </section>
             </section>`;
 }
@@ -343,7 +346,8 @@ function motivationalQuotesUI() {
 function motivationalQuotes() {
     const quoteElem = document.querySelector(".quote-container .quote-card .quote");
     const authorElem = document.querySelector(".quote-container .quote-card .author");
-    const nextQuote = document.querySelector(".quote-container .next-quote-btn");
+    const nextQuoteBtn = document.querySelector(".quote-container .next-quote-btn");
+    const copyQuoteBtn = document.querySelector(".quote-container .copy-quote-btn");
 
     async function fetchQuote() {
         try {
@@ -359,7 +363,22 @@ function motivationalQuotes() {
         }
     }
 
-    nextQuote.addEventListener("click", () => { fetchQuote() })
+    function copyQuote() {
+        const copiedContent = `${quoteElem.textContent}\n\n${authorElem.textContent}`;
+        copyQuoteBtn.textContent = "Copied...";
+        navigator.clipboard.writeText(copiedContent);
+
+        copyQuoteBtn.disabled = true;
+        copyQuoteBtn.style.opacity = 0.6;
+        
+        setTimeout(() => {
+            copyQuoteBtn.textContent = "Copy Quote";
+            copyQuoteBtn.disabled = false;
+            copyQuoteBtn.style.opacity = 1;
+        }, 2000);
+    }
+    nextQuoteBtn.addEventListener("click", () => { fetchQuote() })
+    copyQuoteBtn.addEventListener("click", () => { copyQuote() })
 
     fetchQuote();
 }
@@ -494,7 +513,7 @@ function goalsList() {
         e.preventDefault();
 
         const title = titleInput.value.trim();
-        
+
         if (!title) return;
 
         if (editingGoalId) {

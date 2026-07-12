@@ -651,7 +651,13 @@ input::placeholder {
     font-size: 2rem;
 }
 
-.next-quote-btn {
+.quote-btns{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+}
+.next-quote-btn,.copy-quote-btn {
     color: var(--dark-text-color);
     font-size: 1.5rem;
     font-weight: bolder;
@@ -662,10 +668,9 @@ input::placeholder {
     border-radius: 0.625rem;
 }
 
-.next-quote-btn:active {
+.next-quote-btn:active,.copy-quote-btn:not(:disabled):active {
     transform: scale(0.97);
 }
-
 
 .detail-container .pomodoro-container {
     padding: 1.5rem;
