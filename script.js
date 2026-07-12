@@ -2,6 +2,8 @@ let todolist = [];
 let goals = [];
 let theme = localStorage.getItem("theme") || "light";
 let bgURL = localStorage.getItem("bgURL") || "./assets/images/morning.jpg";
+let firstQuote = null;
+
 
 const popup = document.querySelector("#popup");
 const popupContent = document.querySelector("#popup-content");
@@ -55,6 +57,20 @@ function autoTheme() {
 }
 
 //autoTheme();
+
+async function preloadQuote() {
+    try {
+        const response = await fetch(
+            "https://motivational-spark-api.vercel.app/api/quotes/random"
+        );
+        firstQuote = await response.json();
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+preloadQuote();
+
 
 document.querySelectorAll(".feature").forEach((f) => {
     f.addEventListener("click", () => {
@@ -334,7 +350,7 @@ function motivationalQuotesUI() {
                                 <h4 class="author"></h4>
                             </div>
                         </div>
-                        <div className="quote-btns">
+                        <div class="quote-btns">
                             <button class="next-quote-btn glass">Next Quote</button>
                             <button class="copy-quote-btn glass">Copy Quote</button>
                         </div>
@@ -351,6 +367,12 @@ function motivationalQuotes() {
 
     async function fetchQuote() {
         try {
+            if (firstQuote) {
+                quoteElem.textContent = firstQuote.quote;
+                authorElem.textContent = "- " + firstQuote.author;
+                firstQuote = null;
+                return;
+            }
             // const response = await fetch("https://dummyjson.com/quotes/random");
             const response = await fetch("https://motivational-spark-api.vercel.app/api/quotes/random");
             const { quote, author } = await response.json();
@@ -363,19 +385,23 @@ function motivationalQuotes() {
         }
     }
 
-    function copyQuote() {
+    async function copyQuote() {
         const copiedContent = `${quoteElem.textContent}\n\n${authorElem.textContent}`;
-        copyQuoteBtn.textContent = "Copied...";
-        navigator.clipboard.writeText(copiedContent);
+        try {
+            await navigator.clipboard.writeText(copiedContent);
 
-        copyQuoteBtn.disabled = true;
-        copyQuoteBtn.style.opacity = 0.6;
-        
-        setTimeout(() => {
-            copyQuoteBtn.textContent = "Copy Quote";
-            copyQuoteBtn.disabled = false;
-            copyQuoteBtn.style.opacity = 1;
-        }, 2000);
+            copyQuoteBtn.textContent = "Copied...";
+            copyQuoteBtn.disabled = true;
+            copyQuoteBtn.style.opacity = 0.6;
+
+            setTimeout(() => {
+                copyQuoteBtn.textContent = "Copy Quote";
+                copyQuoteBtn.disabled = false;
+                copyQuoteBtn.style.opacity = 1;
+            }, 2000);
+        } catch (err) {
+            console.error(err);
+        }
     }
     nextQuoteBtn.addEventListener("click", () => { fetchQuote() })
     copyQuoteBtn.addEventListener("click", () => { copyQuote() })

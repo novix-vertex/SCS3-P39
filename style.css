@@ -16,28 +16,28 @@
     --red: #b42318;
     --green: #2f7d32;
 
-    --progress-bar:linear-gradient(90deg, #4ade80, #22c55e);
+    --progress-bar: linear-gradient(90deg, #4ade80, #22c55e);
 }
 
 .dark {
     --glass: rgba(22, 17, 17, 0.438);
     --glass-border: rgba(255, 255, 255, 0.2);
     --blur: 0.75rem;
-    
+
     --overlay: rgba(0, 0, 0, 0.5);
     --linear-gradient: linear-gradient(rgb(61, 59, 59), rgb(27, 26, 26));
-    
+
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    
+
     --text-color: #ffffff;
     --dark-text-color: whitesmoke;
-    
+
     --background-popup: #18181b;
-    
+
     --red: #b42318;
     --green: #2f7d32;
-    
-    --progress-bar:linear-gradient(90deg, #4ade80, #22c55e);
+
+    --progress-bar: linear-gradient(90deg, #4ade80, #22c55e);
 }
 
 * {
@@ -312,9 +312,10 @@ body {
 }
 
 #popup-content {
-    height: 100%;
+    display: flex;
     width: 100%;
-    overflow: hidden;
+    height: 100%;
+    overflow: auto;
 }
 
 .detail-container {
@@ -325,6 +326,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+    flex: 1;
 }
 
 .todo-list-container,
@@ -593,9 +595,9 @@ input::placeholder {
 }
 
 .quote-card {
-    padding: 1rem;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -604,14 +606,14 @@ input::placeholder {
 }
 
 .quote-card-inner {
-    border-radius: 0.87rem;
-    width: 60%;
+    width: min(700px, 95%);
     height: 60%;
+    border-radius: 0.87rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 .quote-card .quote-title,
@@ -635,7 +637,7 @@ input::placeholder {
     padding: 0.5rem;
     border-radius: 0.5rem;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     font-weight: bolder;
 }
 
@@ -647,17 +649,22 @@ input::placeholder {
     color: var(--dark-text-color);
     padding: 2rem;
     text-align: center;
+    word-break: break-all;
     border-radius: 1rem;
-    font-size: 2rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+
 }
 
-.quote-btns{
-    display:flex;
+.quote-btns {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap:2rem;
+    gap: 2rem;
 }
-.next-quote-btn,.copy-quote-btn {
+
+.next-quote-btn,
+.copy-quote-btn {
     color: var(--dark-text-color);
     font-size: 1.5rem;
     font-weight: bolder;
@@ -668,7 +675,8 @@ input::placeholder {
     border-radius: 0.625rem;
 }
 
-.next-quote-btn:active,.copy-quote-btn:not(:disabled):active {
+.next-quote-btn:active,
+.copy-quote-btn:not(:disabled):active {
     transform: scale(0.97);
 }
 
