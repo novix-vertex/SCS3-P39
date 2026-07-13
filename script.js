@@ -371,6 +371,7 @@ function motivationalQuotes() {
                 quoteElem.textContent = firstQuote.quote;
                 authorElem.textContent = "- " + firstQuote.author;
                 firstQuote = null;
+                preloadQuote();
                 return;
             }
             // const response = await fetch("https://dummyjson.com/quotes/random");
