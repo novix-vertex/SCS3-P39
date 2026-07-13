@@ -8,8 +8,8 @@
 
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 
-    --text-color: #6C3B32;
-    --dark-text-color: whitesmoke;
+    --imp-color: #212121;
+    --text-color: whitesmoke;
 
     --background-popup: #f9fafb;
 
@@ -43,8 +43,8 @@
 
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 
-    --text-color: #ffffff;
-    --dark-text-color: whitesmoke;
+    --imp-color: #212121;
+    --text-color: whitesmoke;
 
     --background-popup: #18181b;
 
@@ -83,7 +83,7 @@ html {
 body {
     min-height: 100vh;
     overflow: hidden;
-    color: var(--dark-text-color);
+    color: var(--text-color);
 }
 
 .background,
@@ -109,7 +109,7 @@ body {
     background: var(--glass);
     backdrop-filter: blur(var(--blur));
     border: 1px solid var(--glass-border);
-    color: var(--dark-text-color);
+    color: var(--text-color);
 }
 
 ::-webkit-scrollbar {
@@ -153,7 +153,7 @@ body {
     align-items: center;
     font-size: 1rem;
     font-weight: bold;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     opacity: 0.9;
 }
 
@@ -220,7 +220,7 @@ body {
     border-radius: 999px;
     padding: 0.6rem 0.9rem;
     background: var(--input-background);
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-size: 0.95rem;
 }
 
@@ -230,7 +230,7 @@ body {
     padding: 0.6rem 0.9rem;
     cursor: pointer;
     background: var(--glass-border);
-    color: var(--dark-text-color);
+    color: var(--text-color);
 }
 
 .widgets .weather-card .weather-icon {
@@ -256,7 +256,7 @@ body {
     border-radius: 1.25rem;
     cursor: pointer;
     background: var(--glass);
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-size: 1.125rem;
     padding: 1.25rem;
 }
@@ -274,7 +274,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    color: var(--dark-text-color);
+    color: var(--text-color);
     overflow: hidden;
     height: 100%;
     width: 100%;
@@ -295,7 +295,7 @@ body {
     font-weight: bolder;
     text-transform: capitalize;
     font-size: 1rem;
-    color: var(--dark-text-color);
+    color: var(--text-color);
 }
 
 .popup .popup-nav .dots {
@@ -382,7 +382,7 @@ body {
     font-size: 1rem;
     outline: none;
     border-radius: 5px;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-weight: 500;
     flex: 1;
     cursor: text;
@@ -392,7 +392,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-weight: bolder;
     cursor: pointer;
 }
@@ -407,7 +407,7 @@ body {
 }
 
 input::placeholder {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     opacity: 0.5;
 }
 
@@ -417,7 +417,7 @@ input::placeholder {
     white-space: nowrap;
     font-size: 1rem;
     font-weight: bolder;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -442,7 +442,7 @@ input::placeholder {
 .goal-container .goal-form .add-goal-title {
     padding: 1rem 1.5rem;
     font-size: 1.5rem;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-weight: 600;
     text-align: center;
 }
@@ -481,18 +481,20 @@ input::placeholder {
 .todo-list-container .todo-list-items .task .task-title,
 .goal-container .goal-items .goal .goal-title {
     font-size: 1.02rem;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-weight: 700;
     line-height: 1.35;
+    text-transform: capitalize;
 }
 
 
 .todo-list-container .todo-list-items .task .task-imp {
     font-size: 0.8rem;
-    background-color: var(--glass-border);
-    color: var(--dark-text-color);
+    background-color: var(--dot-yellow);
+    color: var(--imp-color);
     padding: 4px 8px;
     border-radius: 8px;
+    font-weight: bolder;
 }
 
 .todo-list-container .todo-list-items .task .actions {
@@ -517,7 +519,7 @@ input::placeholder {
     align-items: center;
     justify-content: center;
     font-size: 0.95rem;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 0.4rem;
     border-radius: 999px;
     cursor: pointer;
@@ -559,7 +561,7 @@ input::placeholder {
     align-items: center;
     gap: 0.75rem;
     font-weight: 600;
-    color: var(--dark-text-color);
+    color: var(--text-color);
 }
 
 .goal-container .goal-items .goals-progress-bar {
@@ -597,12 +599,12 @@ input::placeholder {
 }
 
 .daily-planner-container .daily-planning-cell p {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .daily-planner-container .daily-planning-cell input[type=text] {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     width: 100%;
     height: 40px;
     font-size: 1.1rem;
@@ -661,7 +663,7 @@ input::placeholder {
 
 .quote-card .quote-title .title,
 .quote-card .author-title .author {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 0.5rem;
     border-radius: 0.5rem;
     width: 100%;
@@ -674,7 +676,7 @@ input::placeholder {
 }
 
 .quote-card .quote {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 2rem;
     text-align: center;
     word-break: break-all;
@@ -693,7 +695,7 @@ input::placeholder {
 
 .next-quote-btn,
 .copy-quote-btn {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-size: 1.5rem;
     font-weight: bolder;
     text-transform: uppercase;
@@ -733,7 +735,7 @@ input::placeholder {
 }
 
 .detail-container .pomodoro-container .timer-container {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     border-radius: 50%;
     padding: 1rem;
     width: 100%;
@@ -741,7 +743,7 @@ input::placeholder {
 }
 
 .detail-container .pomodoro-container .timer-container h4 {
-    color: var(--dark-text-color);
+    color: var(--text-color);
     font-size: 1.5rem;
 }
 
@@ -754,7 +756,7 @@ input::placeholder {
 
 .detail-container .pomodoro-container .action-btns .pomodoro-btn {
     padding: 1rem 2rem;
-    color: var(--dark-text-color);
+    color: var(--text-color);
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
@@ -829,7 +831,7 @@ input::placeholder {
     left: 50%;
     transform: translateX(-50%);
 
-    color: var(--dark-text-color);
+    color: var(--text-color);
     padding: 4px 8px;
     font-size: 12px;
     border-radius: 4px;
