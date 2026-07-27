@@ -721,7 +721,7 @@ function dashboard() {
     async function callWeatherAPI() {
         try {
             // const key = "PLACE KEY HERE AND UNCOMMENT below method calling - callWeatherAPI";
-            const key = "56ea21ffd2164c20b1374741261207";
+            const key = "0366b18202db4ad1ab1120129262607";
             const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`);
 
             const data = await res.json();
